@@ -12,11 +12,11 @@ import javax.swing.JButton;
 public class clientInterface {
 
 	private JFrame frame;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField salesPrice;
+	private JTextField cupOrderAmount;
+	private JTextField coffeeOrderAmount;
+	private JTextField sugarOrderAmount;
+	private JTextField milkOrderAmount;
 
 	/**
 	 * Launch the application.
@@ -66,34 +66,34 @@ public class clientInterface {
 		lblNewLabel.setBounds(20, 60, 100, 20);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JSlider slider = new JSlider();
-		slider.setBounds(80, 95, 100, 20);
-		frame.getContentPane().add(slider);
+		JSlider coffeePerCup = new JSlider();
+		coffeePerCup.setBounds(80, 95, 100, 20);
+		frame.getContentPane().add(coffeePerCup);
 		
 		JLabel lblCoffee = new JLabel("Coffee");
 		lblCoffee.setBounds(25, 95, 45, 20);
 		frame.getContentPane().add(lblCoffee);
 		
-		JSlider slider_1 = new JSlider();
-		slider_1.setBounds(80, 130, 100, 20);
-		frame.getContentPane().add(slider_1);
+		JSlider milkPerCup = new JSlider();
+		milkPerCup.setBounds(80, 130, 100, 20);
+		frame.getContentPane().add(milkPerCup);
 		
 		JLabel lblNewLabel_1 = new JLabel("Milk");
 		lblNewLabel_1.setBounds(25, 125, 45, 20);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JSlider slider_2 = new JSlider();
-		slider_2.setBounds(80, 161, 100, 20);
-		frame.getContentPane().add(slider_2);
+		JSlider sugarPerCup = new JSlider();
+		sugarPerCup.setBounds(80, 161, 100, 20);
+		frame.getContentPane().add(sugarPerCup);
 		
 		JLabel lblSugar = new JLabel("Sugar");
 		lblSugar.setBounds(25, 155, 45, 20);
 		frame.getContentPane().add(lblSugar);
 		
-		textField = new JTextField();
-		textField.setBounds(103, 200, 80, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		salesPrice = new JTextField();
+		salesPrice.setBounds(103, 200, 80, 20);
+		frame.getContentPane().add(salesPrice);
+		salesPrice.setColumns(10);
 		
 		JLabel lblSalesPrice = new JLabel("Sales Price");
 		lblSalesPrice.setBounds(25, 200, 85, 20);
@@ -150,25 +150,25 @@ public class clientInterface {
 		lblOrderAmount.setBounds(350, 84, 80, 14);
 		frame.getContentPane().add(lblOrderAmount);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(350, 100, 86, 14);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		cupOrderAmount = new JTextField();
+		cupOrderAmount.setBounds(350, 100, 86, 14);
+		frame.getContentPane().add(cupOrderAmount);
+		cupOrderAmount.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(350, 130, 86, 14);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		coffeeOrderAmount = new JTextField();
+		coffeeOrderAmount.setBounds(350, 130, 86, 14);
+		frame.getContentPane().add(coffeeOrderAmount);
+		coffeeOrderAmount.setColumns(10);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(350, 160, 86, 14);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		sugarOrderAmount = new JTextField();
+		sugarOrderAmount.setBounds(350, 160, 86, 14);
+		frame.getContentPane().add(sugarOrderAmount);
+		sugarOrderAmount.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(350, 190, 86, 14);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		milkOrderAmount = new JTextField();
+		milkOrderAmount.setBounds(350, 190, 86, 14);
+		frame.getContentPane().add(milkOrderAmount);
+		milkOrderAmount.setColumns(10);
 		
 		JButton btnBuy = new JButton("Buy");
 		btnBuy.setBounds(350, 215, 90, 20);

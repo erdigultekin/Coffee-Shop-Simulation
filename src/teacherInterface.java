@@ -48,9 +48,9 @@ public class teacherInterface {
 		lblCoffeeShopSimulation.setBounds(14, 11, 420, 20);
 		frame.getContentPane().add(lblCoffeeShopSimulation);
 		
-		JList list = new JList();
-		list.setBounds(34, 76, 171, 208);
-		frame.getContentPane().add(list);
+		JList connectedPlayersList = new JList();
+		connectedPlayersList.setBounds(34, 76, 171, 208);
+		frame.getContentPane().add(connectedPlayersList);
 		
 		JLabel lblConnectedPlayers = new JLabel("Connected Players");
 		lblConnectedPlayers.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -61,9 +61,9 @@ public class teacherInterface {
 		btnRunTheSi.setBounds(164, 295, 119, 23);
 		frame.getContentPane().add(btnRunTheSi);
 		
-		JList list_1 = new JList();
-		list_1.setBounds(225, 76, 181, 208);
-		frame.getContentPane().add(list_1);
+		JList playerDataList = new JList();
+		playerDataList.setBounds(225, 76, 181, 208);
+		frame.getContentPane().add(playerDataList);
 		
 		JLabel lblDataStatus = new JLabel("Data Status");
 		lblDataStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
