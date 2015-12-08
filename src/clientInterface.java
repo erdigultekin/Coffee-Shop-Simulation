@@ -19,8 +19,10 @@ public class clientInterface {
 	public static JTextField sugarOrderAmount;
 	public static JTextField milkOrderAmount;
 	public static JTextField userName;
+	
+	
 
-	public static void main(String[] args) {
+	public  clientInterface() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 560, 474);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
