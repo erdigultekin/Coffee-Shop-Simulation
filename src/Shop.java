@@ -9,18 +9,17 @@ public class Shop implements Serializable{
 	public Double balance;
 	public Double [] prices;
 	public int [] dailySales;
-	public String id;
+	public String name;
 	public int day;
 	public Inventory inventory;
 	public Recipe[] recipes;
-	public inventoryPriceTable priceTable = new inventoryPriceTable();
 	
-	public Shop(String id){
+	public Shop(String name){
 		balance = 100.0;
 		day = 0;
 		dailySales = new int[14];
 		prices = new Double[14];
-		this.id = id;
+		this.name = name;
 		this.recipes = new Recipe[14];
 		this.inventory = new Inventory(5,10.0,15.0,20.0);
 	}

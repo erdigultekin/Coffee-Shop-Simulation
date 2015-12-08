@@ -18,7 +18,7 @@ public class Engine {
 	}
 	
 	public void updatePlayerList (Shop shop) {
-		teacher.playerList.addElement(shop.id);
+		teacher.playerList.addElement(shop.name);
 		shops.add(shop);
 		shop.day++;
 		System.out.println("waiting for ready check from the teacher");

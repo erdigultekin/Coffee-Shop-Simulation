@@ -25,7 +25,7 @@ public class WorkerRunnable implements Runnable{
             InputStream input  = clientSocket.getInputStream();
             ObjectInputStream ois = new ObjectInputStream(input);
             Shop shop = (Shop) ois.readObject();
-            System.out.println("Shop is read with shop id: "+shop.id);
+            System.out.println("Shop is read with shop id: "+shop.name);
             OutputStream output = clientSocket.getOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(output);
             oos.writeObject(shop);

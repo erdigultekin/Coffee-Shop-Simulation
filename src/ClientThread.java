@@ -39,7 +39,7 @@ public class ClientThread extends Thread{
             
             
             
-            System.out.println("Shop Object is read. Its id is : "+shop.id);
+            System.out.println("Shop Object is read. Its id is : "+shop.name);
             
             Engine engine = new Engine(teacher);
             

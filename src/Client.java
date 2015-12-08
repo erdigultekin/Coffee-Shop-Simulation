@@ -11,8 +11,10 @@ public class Client
 {
 	public static void main(String[] args) throws IOException {
 
-		Client m = new Client();
-		m.connect();
+	//	Client m = new Client();
+		clientInterface cln = new clientInterface();
+	//	m.connect();
+		
 	}
 
 	public void connect() throws IOException{
@@ -22,7 +24,7 @@ public class Client
 		String ip = "127.0.0.1";
 		int port = 4444;
 		Socket socket = null;
-
+		
 		
 		try {
 
@@ -41,14 +43,14 @@ public class Client
 			
 			Shop shop = new Shop("Erdi");
 			shop.day = 1;
-			System.out.println(shop.id+"'s shop's day before sending is : "+shop.day);
-			System.out.println("Trying to send "+shop.id+"'s shop to the Server.");
+			System.out.println(shop.name+"'s shop's day before sending is : "+shop.day);
+			System.out.println("Trying to send "+shop.name+"'s shop to the Server.");
 			out.writeObject(shop);
-			System.out.println("Sent "+shop.id+"'s shop to the Server.");
+			System.out.println("Sent "+shop.name+"'s shop to the Server.");
 			shop = (Shop) in.readObject();
-			System.out.println("Read "+shop.id+"'s shop from the Server.");
+			System.out.println("Read "+shop.name+"'s shop from the Server.");
 			
-			System.out.println(shop.id+"'s shop's day after receiving is : "+shop.day);
+			System.out.println(shop.name+"'s shop's day after receiving is : "+shop.day);
 
 			/*
 			while (true){
