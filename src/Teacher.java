@@ -7,13 +7,14 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Teacher {
-	ArrayList<Shop> shops;
-	DefaultListModel playerList;
-	ArrayList<String> dataStatus;
-	HashMap<String,String> playerData;
-	JList userJList;
-	JList dataJList;
+	static ArrayList<Shop> shops;
+	static DefaultListModel playerList;
+	static ArrayList<String> dataStatus;
+	static HashMap<String,String> playerData;
+	static JList userJList;
+	static JList dataJList;
 	public static boolean readyCheck;
+	public static int day;
 	
 	public static void main(String[] args) {
 
@@ -59,15 +60,17 @@ public class Teacher {
 	}
 
 	public Teacher(){
+		day = 1;
 		JButton okButton = new JButton("Run Simulation for the Next Day");
 		ButtonHandler listener = new ButtonHandler();
 		okButton.addActionListener(listener);
 
 		JLabel title = new JLabel();
 		title.setText("Here is a list of connected users and their data status:");
-
-		JLabel day = new JLabel();
-		day.setText("This is day 1.");
+		
+		
+		JLabel dayLabel = new JLabel();
+		dayLabel.setText("This is day "+day+".");
 
 		//String playerList[] ={"User A", "User B", "User C", "User D", "User E"};
 
@@ -90,7 +93,7 @@ public class Teacher {
 		content.setLayout(new BorderLayout());
 		content.add(okButton, BorderLayout.SOUTH);
 		content.add(title, BorderLayout.NORTH);
-		content.add(day, BorderLayout.EAST);
+		content.add(dayLabel, BorderLayout.EAST);
 		//content.add(dataJList, BorderLayout.CENTER);
 		content.add(userJList, BorderLayout.WEST);
 
@@ -110,6 +113,7 @@ public class Teacher {
 			//Engine.actionApproved();
 			Engine.readyCheck=true;
 			Teacher.readyCheck=true;
+			Engine.sendCustomersToShops();
 		}
 		
 	}

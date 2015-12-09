@@ -10,17 +10,29 @@ import javax.swing.JList;
 
 
 public class Engine {
+	static final int playableDays = 14;
 	static volatile ArrayList<Shop> shops = new ArrayList<Shop>();
-	Teacher teacher;
+	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
 	public static boolean readyCheck = false;
-	public Engine(Teacher teacher) {
-		this.teacher = teacher;
+	
+	public Engine() {
+		
 	}
 	
-	public void updatePlayerList (Shop shop) {
-		teacher.playerList.addElement(shop.name);
+	public static boolean checkDayConsistency(Shop shop){
+		if(Teacher.day!=shop.day||Teacher.day>playableDays){
+			return false;
+		}
+		return true;
+	}
+	
+	public synchronized static void updatePlayerList (Shop shop) {
+		
+		Teacher.playerList.addElement(shop.name);
 		shops.add(shop);
-		shop.day++;
+	}
+	
+	public static void controlTeachersApproval() {
 		System.out.println("waiting for ready check from the teacher");
 		while(!Engine.readyCheck||!Teacher.readyCheck){
 			try {
@@ -31,10 +43,16 @@ public class Engine {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Teacher approved");
-		//teacher.userJList = new JList(teacher.playerList.toArray());
-	}	
-	public void updateDataList() {
-		
+	}
+	
+	public static Shop getProperShop(Shop shop){
+		return shopMap.get(shop.name);
+	}
+	
+	public static void sendCustomersToShops(){
+		for(Shop shop : Engine.shops){
+			//Currently making 3 sales for each shop without updating their inventory.
+			shop.balance+=3*shop.prices[shop.day];
+		}
 	}
 }

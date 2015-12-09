@@ -17,10 +17,9 @@ public class ClientThread extends Thread{
     private Teacher teacher;
 
     //Constructor
-     public ClientThread(Socket socket, ClientThread[] clientsConnected, Teacher teacher){
+     public ClientThread(Socket socket, ClientThread[] clientsConnected){
         this.socket = socket;
         this.clientsConnected = clientsConnected;
-        this.teacher = teacher;
     }
 
     public void run(){
@@ -37,52 +36,48 @@ public class ClientThread extends Thread{
             
             shop = (Shop) in.readObject();
             
+            System.out.println("Shop Object is read. Its name is : "+shop.name);
             
-            
-            System.out.println("Shop Object is read. Its id is : "+shop.name);
-            
-            Engine engine = new Engine(teacher);
+            /*
+             * Engine part followed from here. Each thread here follows the logic:
+             * 0-) Check Day consistency between Server and Client. If not consistent send it back properly.
+             * 1-) Update the Teacher's player list. 
+             * 2-) Wait for Teacher's approval and Engine's work to be done(Model is running).
+             * 3-) Get the proper shop that is updated by the Engine.
+             * 4-) Increment shop's day.
+             * 5-) Send new shop to the client
+             */
             
             System.out.println("Engine part is beginning");
             
-            engine.updatePlayerList(shop);
+            if(!Engine.checkDayConsistency(shop)){
+            	//Mistaken shops drop here. Send them properly.
+            	out.writeObject(shop);
+            }
+            
+            Engine.updatePlayerList(shop);
             
             System.out.println("Updated player list in teacher gui");
+            
+            Engine.controlTeachersApproval();
+            
+            System.out.println("Teacher approved");
+            
+            shop = Engine.getProperShop(shop);
+            
+            shop.day++;
             
             System.out.println("Returning new Shop Object to client");
             
             out.writeObject(shop);
             
-            while(true){
-            	System.out.println("Hanging here time to time.");
-            	sleep(500000);
-            	
-            }
-            
-            /*clientName = in.readUTF();
-
-            while (true){
-                message = in.readUTF();
-
-                for (int c = 0; c < clientsConnected.length; c++){
-                    if (clientsConnected[c]!= null && clientsConnected[c].clientName != this.clientName){ //dont send message to your self ;)
-                        clientsConnected[c].sendMessage(message, clientName); // loops through all the list and calls the objects sendMessage method.
-                    }
-                }
-
-            }
-            */
-
         } catch (IOException e) {
             System.out.println("Client disconnected!");
             this.clientsConnected = null;
         } catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
     }
     // Every instance of this class ( the client ) will have this method.
     private void sendMessage(String mess, String name){
