@@ -30,6 +30,7 @@ public class Engine {
 		
 		Teacher.playerList.addElement(shop.name);
 		shops.add(shop);
+		shopMap.put(shop.name, shop);
 	}
 	
 	public static void controlTeachersApproval() {
