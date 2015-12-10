@@ -15,54 +15,52 @@ public class Teacher {
 	static JList dataJList;
 	public static boolean readyCheck;
 	public static int day;
-
+	private JFrame frame;
+	
 	public Teacher(){
 		//teacherInterface.java dakiler
-		
 		day = 1;
-		JButton okButton = new JButton("Run Simulation for the Next Day");
-		ButtonHandler listener = new ButtonHandler();
-		okButton.addActionListener(listener);
-
-		JLabel title = new JLabel();
-		title.setText("Here is a list of connected users and their data status:");
+		frame = new JFrame();
+		frame.setBounds(100, 100, 460, 370);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
 		
+		JLabel lblCoffeeShopSimulation = new JLabel("Coffee Shop Simulation Management Console");
+		lblCoffeeShopSimulation.setFont(new Font("Verdana", Font.BOLD, 16));
+		lblCoffeeShopSimulation.setBounds(14, 11, 420, 20);
+		frame.getContentPane().add(lblCoffeeShopSimulation);
 		
-		JLabel dayLabel = new JLabel();
-		dayLabel.setText("This is day "+day+".");
-
-		//String playerList[] ={"User A", "User B", "User C", "User D", "User E"};
-
-		//this.shops = new ArrayList<Shop>();
-
-
-		//String dataStatus[] ={"OK", "-", "OK", "OK", "-"};
-
-		//this.dataJList = new JList(dataStatus);
+		JList connectedPlayersList = new JList();
+		connectedPlayersList.setBounds(34, 76, 171, 208);
+		frame.getContentPane().add(connectedPlayersList);
 		
-		this.playerList = new DefaultListModel();
-		playerList.addElement("User A");
-		playerList.addElement("User B");
-		playerList.addElement("User C");
-		playerList.addElement("User D");
-		playerList.addElement("User E");
-		this.userJList = new JList(playerList);
-
-		JPanel content = new JPanel();
-		content.setLayout(new BorderLayout());
-		content.add(okButton, BorderLayout.SOUTH);
-		content.add(title, BorderLayout.NORTH);
-		content.add(dayLabel, BorderLayout.EAST);
-		//content.add(dataJList, BorderLayout.CENTER);
-		content.add(userJList, BorderLayout.WEST);
-
-		JFrame window = new JFrame("Coffee Shop Simulation Management Console");
-		window.setContentPane(content);
-		window.setSize(500,500);
-		window.setLocation(100,100);
-		window.setVisible(true);
-
-		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		JLabel lblConnectedPlayers = new JLabel("Connected Players");
+		lblConnectedPlayers.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblConnectedPlayers.setBounds(34, 51, 120, 20);
+		frame.getContentPane().add(lblConnectedPlayers);
+		
+		JButton btnRunTheSi = new JButton("Run Simulation");
+		btnRunTheSi.setBounds(164, 295, 119, 23);
+		frame.getContentPane().add(btnRunTheSi);
+		
+		JList playerDataList = new JList();
+		playerDataList.setBounds(225, 76, 181, 208);
+		frame.getContentPane().add(playerDataList);
+		
+		JLabel lblDataStatus = new JLabel("Data Status");
+		lblDataStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDataStatus.setBounds(223, 54, 76, 14);
+		frame.getContentPane().add(lblDataStatus);
+		
+		JLabel lblDay = new JLabel("Day:");
+		lblDay.setForeground(Color.RED);
+		lblDay.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDay.setBounds(360, 41, 46, 14);
+		frame.getContentPane().add(lblDay);
+		
+		JLabel label = new JLabel("0");
+		label.setBounds(409, 41, 46, 14);
+		frame.getContentPane().add(label);
 	}
 
 	
