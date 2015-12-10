@@ -16,7 +16,7 @@ public class Shop implements Serializable{
 	
 	public Shop(String name){
 		balance = 100.0;
-		day = 0;
+		day = 1;
 		dailySales = new int[14];
 		prices = new Double[14];
 		this.name = name;

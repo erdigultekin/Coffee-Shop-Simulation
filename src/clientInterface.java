@@ -22,6 +22,7 @@ public class clientInterface {
 	public String userName;
 	public int coffeeMix;
 	public int milkMix;
+	public int sugarMix;
 	public int price;
 	public int day;
 	public double balance = 100;
@@ -35,6 +36,7 @@ public class clientInterface {
 	public double milkUnitPrice = 2.7;
 	public double sugarUnitPrice = 2.5;
 	public double cupUnitPrice = 3.1;
+	public Shop shop;
 	
 	public  clientInterface() {
 		frame = new JFrame();
@@ -285,7 +287,7 @@ public class clientInterface {
 		    nameButton.setEnabled(false);
 		    userNameTextBox.setEnabled(false);
 		    submitButton.setEnabled(true);
-		    
+		    shop= new Shop(userName);
 		    status = "Please determine your coffee recipe, coffe price and press submit button.";
 			dataStatusLabel.setText(status);
 		  }
@@ -327,6 +329,14 @@ public class clientInterface {
 		  {
 		    submitButton.setEnabled(false);
 		    buyButton.setEnabled(false);
+		    
+		    price = priceSlider.getValue();
+		    sugarMix = sugarPerCup.getValue();
+		    milkMix = milkPerCup.getValue();
+		    coffeeMix = coffeePerCup.getValue();
+		    Recipe recipe = new Recipe(coffeeMix,milkMix,sugarMix);
+		    shop.prices[shop.day-1] = (double) price;
+		    shop.recipes[shop.day-1] =recipe;
 		   
 		  }
 		});
