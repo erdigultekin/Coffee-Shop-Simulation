@@ -39,9 +39,9 @@ public class Teacher {
 		lblConnectedPlayers.setBounds(34, 51, 120, 20);
 		frame.getContentPane().add(lblConnectedPlayers);
 		
-		JButton btnRunTheSi = new JButton("Run Simulation");
-		btnRunTheSi.setBounds(164, 295, 119, 23);
-		frame.getContentPane().add(btnRunTheSi);
+		JButton runButton = new JButton("Run Simulation");
+		runButton.setBounds(164, 295, 119, 23);
+		frame.getContentPane().add(runButton);
 		
 		JList playerDataList = new JList();
 		playerDataList.setBounds(225, 76, 181, 208);
@@ -63,19 +63,23 @@ public class Teacher {
 		frame.getContentPane().add(label);
 		
 		frame.setVisible(true);
-	}
-
-	
-
-	public static class ButtonHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			//Engine.actionApproved();
-			Engine.readyCheck=true;
-			Teacher.readyCheck=true;
-			Engine.sendCustomersToShops();
-			day++;
-		}
+		
+		runButton.addActionListener(new ActionListener()
+		{
+		  public void actionPerformed(ActionEvent e)
+		  {
+			  
+				Engine.readyCheck=true;
+				Teacher.readyCheck=true;
+				Engine.sendCustomersToShops();
+				day++;
+				
+		    runButton.setEnabled(false);
+		  
+		  }
+		});
 		
 	}
 
+		
 }
