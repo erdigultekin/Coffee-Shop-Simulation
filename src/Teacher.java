@@ -68,7 +68,6 @@ public class Teacher {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				runButton.setEnabled(false);
 				Engine.sendCustomersToShops();
 
 				Engine.readyCheck = true;
@@ -85,8 +84,7 @@ public class Teacher {
 				
 				Engine.readyCheck = false;
 				Teacher.readyCheck = false;
-				
-				runButton.setEnabled(true);
+			
 
 			}
 		});
