@@ -18,7 +18,7 @@ public class Shop implements Serializable{
 		day = 1;
 		dailySales = 0;
 		this.name = name;
-		this.inventory = new Inventory(5,10.0,15.0,20.0);
+		this.inventory = new Inventory(0,0,0,0);
 	}
 	
 	public void balanceUpdater() {
