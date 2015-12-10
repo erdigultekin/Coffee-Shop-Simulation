@@ -17,7 +17,7 @@ public class Client
 		
 	}
 
-	public void connect() throws IOException{
+	public static Shop connect(Shop shop) throws IOException{
 		
 
 		// localhost ip
@@ -35,14 +35,7 @@ public class Client
 			
 			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 			ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-			//start a thread which will start listening for messages
-			//new ReceiveMessage(in).start();
-
-			// send the name to the server!
-			//out.writeUTF(name);
 			
-			Shop shop = new Shop("Erdi");
-			shop.day = 1;
 			System.out.println(shop.name+"'s shop's day before sending is : "+shop.day);
 			System.out.println("Trying to send "+shop.name+"'s shop to the Server.");
 			out.writeObject(shop);
@@ -52,13 +45,6 @@ public class Client
 			
 			System.out.println(shop.name+"'s shop's day after receiving is : "+shop.day);
 
-			/*
-			while (true){
-				//Write messages :)
-				String message = keyboard.nextLine();
-				out.writeUTF(message);
-			}
-			*/
 			in.close();
 			out.close();
 
@@ -70,30 +56,7 @@ public class Client
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return shop;
 	}
-
-	class ReceiveMessage extends Thread{
-
-		DataInputStream in;
-
-		ReceiveMessage(DataInputStream in){
-			this.in = in;
-		}
-
-		public void run(){
-			String message;
-			while (true){
-				try {
-					message = in.readUTF();
-					System.out.println(message);
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
-
-	}
-
 }
