@@ -4,7 +4,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class Main {
+public class Server {
 
     public static void main(String[] args) throws IOException {
         Teacher teacher = new Teacher();
@@ -15,6 +15,7 @@ public class Main {
         Socket clientSocket = null;
         // An array of clientsConnected instances
         ClientThread[] clientsConnected = new ClientThread[MAXCLIENTS];
+        
         
         try {
             server = new ServerSocket(port);
