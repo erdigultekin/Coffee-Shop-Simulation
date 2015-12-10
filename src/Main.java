@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         Teacher teacher = new Teacher();
-        Engine engine = new Engine();
     	
     	int MAXCLIENTS = 20;
         int port = 4444;
