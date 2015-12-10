@@ -68,13 +68,13 @@ public class Teacher {
 		{
 		  public void actionPerformed(ActionEvent e)
 		  {
-			  
+			  runButton.setEnabled(false);
 				Engine.readyCheck=true;
 				Teacher.readyCheck=true;
 				Engine.sendCustomersToShops();
 				day++;
 				
-		    runButton.setEnabled(false);
+				runButton.setEnabled(true);
 		  
 		  }
 		});
