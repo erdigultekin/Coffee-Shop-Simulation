@@ -56,4 +56,10 @@ public class Engine {
 			shop.balance+=3*shop.prices[shop.day];
 		}
 	}
+	
+	public static void clearPlaylist(){
+		Teacher.playerList.removeAllElements();
+		shops.clear();
+		shopMap.clear();
+	}
 }

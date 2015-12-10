@@ -85,7 +85,7 @@ public class Teacher {
 				Engine.readyCheck = false;
 				Teacher.readyCheck = false;
 			
-
+				Engine.clearPlaylist();
 			}
 		});
 
