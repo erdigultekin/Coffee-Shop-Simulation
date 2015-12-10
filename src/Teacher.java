@@ -58,9 +58,9 @@ public class Teacher {
 		lblDay.setBounds(360, 41, 46, 14);
 		frame.getContentPane().add(lblDay);
 
-		JLabel label = new JLabel("0");
-		label.setBounds(409, 41, 46, 14);
-		frame.getContentPane().add(label);
+		JLabel dayLabel = new JLabel("1");
+		dayLabel.setBounds(409, 41, 46, 14);
+		frame.getContentPane().add(dayLabel);
 
 		frame.setVisible(true);
 
@@ -74,6 +74,8 @@ public class Teacher {
 				Teacher.readyCheck = true;
 
 				day++;
+				
+				dayLabel.setText(""+day);
 
 				try {
 					Thread.sleep(5000);
