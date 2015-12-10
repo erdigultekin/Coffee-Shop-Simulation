@@ -61,6 +61,8 @@ public class Teacher {
 		JLabel label = new JLabel("0");
 		label.setBounds(409, 41, 46, 14);
 		frame.getContentPane().add(label);
+		
+		frame.setVisible(true);
 	}
 
 	
