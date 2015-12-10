@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -37,6 +38,7 @@ public class clientInterface {
 	public double sugarUnitPrice = 2.5;
 	public double cupUnitPrice = 3.1;
 	public Shop shop;
+	public Shop updatedShop;
 	
 	public  clientInterface() {
 		frame = new JFrame();
@@ -302,10 +304,15 @@ public class clientInterface {
 			  
 			if(balance>orderAmount){
 			balance = balance - orderAmount;
+			shop.balance = balance;
 			coffee = coffee + coffeeOrderSlider.getValue();
+			shop.inventory.coffee = coffee;
 			milk = milk + milkOrderSlider.getValue();
+			shop.inventory.milk = milk;
 			sugar = sugar + sugarOrderSlider.getValue();
+			shop.inventory.sugar = sugar;
 			cup = cup + cupOrderSlider.getValue();
+			shop.inventory.cups = cup;
 			
 			cupStockLabel.setText(""+cup);
 			coffeeStockLabel.setText(""+coffee);
@@ -330,13 +337,31 @@ public class clientInterface {
 		    submitButton.setEnabled(false);
 		    buyButton.setEnabled(false);
 		    
-		    price = priceSlider.getValue();
-		    sugarMix = sugarPerCup.getValue();
-		    milkMix = milkPerCup.getValue();
-		    coffeeMix = coffeePerCup.getValue();
-		    Recipe recipe = new Recipe(coffeeMix,milkMix,sugarMix);
-		    shop.prices[shop.day-1] = (double) price;
-		    shop.recipes[shop.day-1] =recipe;
+		    Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(),priceSlider.getValue());
+		    shop.recipe = recipe;
+		    
+		    status = "Sending data...";
+			dataStatusLabel.setText(status);
+			
+			try {
+			updatedShop = Client.connect(shop);
+			shop.balance = updatedShop.balance;
+			shop.dailySales = updatedShop.dailySales;
+			shop.day = updatedShop.day;
+			shop.inventory = updatedShop.inventory;
+			
+			cupStockLabel.setText(""+shop.inventory.cups);
+			coffeeStockLabel.setText(""+shop.inventory.coffee);
+			milkStockLabel.setText(""+shop.inventory.milk);
+			sugarStockLabel.setText(""+shop.inventory.sugar);
+			currentBalanceLabel.setText(""+shop.balance);
+			previousDaySales.setText(""+ shop.dailySales);
+			currentDayLabel.setText(""+shop.day);
+			
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		   
 		  }
 		});
@@ -406,6 +431,7 @@ public class clientInterface {
 		  }
 		});
 	}
+	
 	
 	public static void main (String [] args){
 		clientInterface cl = new clientInterface();
