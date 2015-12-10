@@ -358,6 +358,12 @@ public class clientInterface {
 			previousDaySales.setText(""+ shop.dailySales);
 			currentDayLabel.setText(""+shop.day);
 			
+			submitButton.setEnabled(true);
+		    buyButton.setEnabled(true);
+		    
+		    status = "Please set your recipe and inventory for the next day.";
+			dataStatusLabel.setText(status);
+			
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
