@@ -7,18 +7,14 @@ import java.util.HashMap;
 import javax.swing.*;
 
 public class Teacher {
-	static ArrayList<Shop> shops;
 	static DefaultListModel playerList;
-	static ArrayList<String> dataStatus;
-	static HashMap<String,String> playerData;
-	static JList userJList;
-	static JList dataJList;
 	public static boolean readyCheck;
 	public static int day;
 	private JFrame frame;
 
 	public Teacher(){
 		//teacherInterface.java dakiler
+		playerList = new DefaultListModel();
 		day = 1;
 		frame = new JFrame();
 		frame.setBounds(100, 100, 460, 370);
@@ -30,7 +26,7 @@ public class Teacher {
 		lblCoffeeShopSimulation.setBounds(14, 11, 420, 20);
 		frame.getContentPane().add(lblCoffeeShopSimulation);
 
-		JList connectedPlayersList = new JList();
+		JList connectedPlayersList = new JList(playerList);
 		connectedPlayersList.setBounds(34, 76, 171, 208);
 		frame.getContentPane().add(connectedPlayersList);
 
