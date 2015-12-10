@@ -296,8 +296,10 @@ public class clientInterface {
 		  public void actionPerformed(ActionEvent e)
 		  {
 			  
-			if(balance>0){
-			balance = balance - ((coffeeOrderSlider.getValue() * coffeeUnitPrice) + (milkOrderSlider.getValue() * milkUnitPrice) + (sugarOrderSlider.getValue() * sugarUnitPrice) + (cupOrderSlider.getValue() * cupUnitPrice));
+			double orderAmount = ((coffeeOrderSlider.getValue() * coffeeUnitPrice) + (milkOrderSlider.getValue() * milkUnitPrice) + (sugarOrderSlider.getValue() * sugarUnitPrice) + (cupOrderSlider.getValue() * cupUnitPrice));
+			  
+			if(balance>orderAmount){
+			balance = balance - orderAmount;
 			coffee = coffee + coffeeOrderSlider.getValue();
 			milk = milk + milkOrderSlider.getValue();
 			sugar = sugar + sugarOrderSlider.getValue();
