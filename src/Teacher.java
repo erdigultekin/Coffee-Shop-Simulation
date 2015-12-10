@@ -114,6 +114,7 @@ public class Teacher {
 			Engine.readyCheck=true;
 			Teacher.readyCheck=true;
 			Engine.sendCustomersToShops();
+			day++;
 		}
 		
 	}
