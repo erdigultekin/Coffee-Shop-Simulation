@@ -51,7 +51,8 @@ public class Engine {
 	public static void sendCustomersToShops(){
 		for(Shop shop : Engine.shopMap.values()){
 			//Currently making 3 sales for each shop without updating their inventory.
-			shop.balance+=3*shop.prices[shop.day];
+			shop.balance+=3*shop.prices[shop.day-1];
+			shop.dailySales[shop.day-1] = 3;
 			shopMap.put(shop.name, shop);
 		}
 	}
