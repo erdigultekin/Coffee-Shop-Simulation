@@ -11,7 +11,6 @@ import javax.swing.JList;
 
 public class Engine {
 	static final int playableDays = 14;
-	static volatile ArrayList<Shop> shops = new ArrayList<Shop>();
 	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
 	public static boolean readyCheck = false;
 	
@@ -29,7 +28,6 @@ public class Engine {
 	public synchronized static void updatePlayerList (Shop shop) {
 		
 		Teacher.playerList.addElement(shop.name);
-		shops.add(shop);
 		shopMap.put(shop.name, shop);
 	}
 	
@@ -51,15 +49,15 @@ public class Engine {
 	}
 	
 	public static void sendCustomersToShops(){
-		for(Shop shop : Engine.shops){
+		for(Shop shop : Engine.shopMap.values()){
 			//Currently making 3 sales for each shop without updating their inventory.
 			shop.balance+=3*shop.prices[shop.day];
+			shopMap.put(shop.name, shop);
 		}
 	}
 	
 	public static void clearPlaylist(){
 		Teacher.playerList.removeAllElements();
-		shops.clear();
 		shopMap.clear();
 	}
 }
