@@ -33,7 +33,7 @@ public class ClientInterface {
 	public int milk;
 	public int sugar;
 	public int cup;
-	public double coffeeUnitPrice = 1.5;
+	public double coffeeUnitPrice = 21.0;
 	public double milkUnitPrice = 2.7;
 	public double sugarUnitPrice = 2.5;
 	public double cupUnitPrice = 0.1;
