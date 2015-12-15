@@ -16,4 +16,33 @@ public class Inventory implements Serializable{
 		this.milk = milk;
 		this.sugar = sugar;
 	}
+
+	public double getCoffee() {
+		double cof = this.coffee * 1000;
+		return cof;
+	}
+
+	public void setCoffee(double cof) {
+		this.coffee = cof / 1000;
+	}
+
+	public double getMilk() {
+		double mlk = milk*1000;
+		return mlk;
+	}
+
+	public void setMilk(double mlk) {
+		this.milk = mlk/1000;
+	}
+
+	public double getSugar() {
+		double sgr = sugar * 1000;
+		return sgr;
+	}
+
+	public void setSugar(double sgr) {
+		this.sugar = sgr/1000;
+	}
+
+	
 }
