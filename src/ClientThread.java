@@ -36,6 +36,9 @@ public class ClientThread extends Thread{
 
 			System.out.println("Shop Object is read. Its name is : "+shop.name);
 
+			System.out.println("Shop object before engine start running: ");
+			Engine.printShopDetails(shop);
+
 			/*
 			 * Engine part followed from here. Each thread here follows the logic:
 			 * 0-) Check Day consistency between Server and Client. If not consistent send it back properly.
@@ -76,6 +79,10 @@ public class ClientThread extends Thread{
 					}
 				}
 			}
+
+			System.out.println("Shop object after engine finished: ");
+			Engine.printShopDetails(shop);
+
 
 		} catch (IOException e) {
 			System.out.println("Client disconnected!");
