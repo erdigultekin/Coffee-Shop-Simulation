@@ -16,7 +16,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
-public class clientInterface {
+public class ClientInterface {
 
 	public JFrame frame;
 	public JTextField userNameTextBox;
@@ -40,7 +40,7 @@ public class clientInterface {
 	public Shop shop;
 	public Shop updatedShop;
 	
-	public  clientInterface() {
+	public  ClientInterface() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 600, 426);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -440,6 +440,6 @@ public class clientInterface {
 	
 	
 	public static void main (String [] args){
-		clientInterface cl = new clientInterface();
+		ClientInterface cl = new ClientInterface();
 	}
 }
