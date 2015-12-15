@@ -27,7 +27,7 @@ public class Teacher {
 		frame.getContentPane().add(lblCoffeeShopSimulation);
 
 		JList connectedPlayersList = new JList(playerList);
-		connectedPlayersList.setBounds(34, 76, 171, 208);
+		connectedPlayersList.setBounds(34, 76, 372, 208);
 		frame.getContentPane().add(connectedPlayersList);
 
 		JLabel lblConnectedPlayers = new JLabel("Connected Players");
@@ -38,15 +38,6 @@ public class Teacher {
 		JButton runButton = new JButton("Run Simulation");
 		runButton.setBounds(164, 295, 119, 23);
 		frame.getContentPane().add(runButton);
-
-		JList playerDataList = new JList();
-		playerDataList.setBounds(225, 76, 181, 208);
-		frame.getContentPane().add(playerDataList);
-
-		JLabel lblDataStatus = new JLabel("Data Status");
-		lblDataStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDataStatus.setBounds(223, 54, 76, 14);
-		frame.getContentPane().add(lblDataStatus);
 
 		JLabel lblDay = new JLabel("Day:");
 		lblDay.setForeground(Color.RED);
