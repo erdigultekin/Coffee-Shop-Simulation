@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -18,9 +20,8 @@ import javax.swing.JTextArea;
 
 public class ClientInterface {
 
-	public JFrame frame;
-	public JTextField userNameTextBox;
-	public String userName;
+	public static JFrame frame;
+	public static String userName = "";
 	public int coffeeMix;
 	public int milkMix;
 	public int sugarMix;
@@ -28,7 +29,7 @@ public class ClientInterface {
 	public int day;
 	public double balance = 100;
 	public int sales;
-	public String status ="Please enter your name";
+	public String status ="Please submit your recipe.";
 	public int coffee;
 	public int milk;
 	public int sugar;
@@ -37,7 +38,7 @@ public class ClientInterface {
 	public double milkUnitPrice = 2.7;
 	public double sugarUnitPrice = 2.5;
 	public double cupUnitPrice = 0.1;
-	public Shop shop;
+	public static Shop shop;
 	public Shop updatedShop;
 
 	public  ClientInterface() {
@@ -204,20 +205,6 @@ public class ClientInterface {
 		milkPriceLabel.setBounds(510, 190, 46, 14);
 		frame.getContentPane().add(milkPriceLabel);
 
-		JLabel lblUserName = new JLabel("User Name");
-		lblUserName.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblUserName.setBounds(15, 265, 80, 14);
-		frame.getContentPane().add(lblUserName);
-
-		userNameTextBox = new JTextField();
-		userNameTextBox.setBounds(80, 264, 80, 15);
-		frame.getContentPane().add(userNameTextBox);
-		userNameTextBox.setColumns(10);
-
-		JButton nameButton = new JButton("OK");
-		nameButton.setBounds(180, 265, 80, 15);
-		frame.getContentPane().add(nameButton);
-
 		JLabel coffeeSliderLabel = new JLabel("5");
 		coffeeSliderLabel.setBounds(205, 90, 25, 15);
 		frame.getContentPane().add(coffeeSliderLabel);
@@ -281,23 +268,6 @@ public class ClientInterface {
 		milkOrderLabel.setBounds(480, 190, 25, 15);
 		frame.getContentPane().add(milkOrderLabel);
 		frame.setVisible(true);
-
-		submitButton.setEnabled(false);
-
-
-		nameButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				userName = userNameTextBox.getText();
-				nameButton.setEnabled(false);
-				userNameTextBox.setEnabled(false);
-				submitButton.setEnabled(true);
-				shop= new Shop(userName);
-				status = "Please determine your coffee recipe, coffe price and press submit button.";
-				dataStatusLabel.setText(status);
-			}
-		});
 
 		buyButton.addActionListener(new ActionListener()
 		{
@@ -447,5 +417,8 @@ public class ClientInterface {
 
 	public static void main (String [] args){
 		ClientInterface cl = new ClientInterface();
+		userName = JOptionPane.showInputDialog(frame,
+                "What is your name?", null);
+		shop= new Shop(userName);
 	}
 }
