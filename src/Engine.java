@@ -29,6 +29,16 @@ public class Engine {
 	public synchronized static void updatePlayerList (Shop shop) {
 
 		Teacher.playerList.addElement(shop.name);
+		Teacher.balances.addElement(shop.balance);
+		Teacher.sales.addElement(shop.dailySales);
+		Teacher.prices.addElement(shop.recipe.price);
+		Teacher.sugarMix.addElement(shop.recipe.sugar);
+		Teacher.milkMix.addElement(shop.recipe.milk);
+		Teacher.coffeeMix.addElement(shop.recipe.coffee);
+		Teacher.coffees.addElement(shop.inventory.coffee);
+		Teacher.sugars.addElement(shop.inventory.sugar);
+		Teacher.milks.addElement(shop.inventory.milk);
+		Teacher.cups.addElement(shop.inventory.cups);
 		shopMap.put(shop.name, shop);
 	}
 
@@ -136,6 +146,16 @@ public class Engine {
 
 	public static void clearPlaylist(){
 		Teacher.playerList.removeAllElements();
+		Teacher.balances.removeAllElements();
+		Teacher.sales.removeAllElements();
+		Teacher.prices.removeAllElements();
+		Teacher.milkMix.removeAllElements();
+		Teacher.sugarMix.removeAllElements();
+		Teacher.coffeeMix.removeAllElements();
+		Teacher.coffees.removeAllElements();
+		Teacher.sugars.removeAllElements();
+		Teacher.milks.removeAllElements();
+		Teacher.cups.removeAllElements();
 		shopMap.clear();
 	}
 

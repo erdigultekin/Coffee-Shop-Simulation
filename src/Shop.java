@@ -20,10 +20,4 @@ public class Shop implements Serializable{
 		this.name = name;
 		this.inventory = new Inventory(0,0,0,0);
 	}
-
-	public void balanceUpdater() {
-		balance = balance + recipe.price * 3;
-		dailySales = 3;
-		day++;
-	}
 }
