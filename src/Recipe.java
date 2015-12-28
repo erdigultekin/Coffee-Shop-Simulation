@@ -1,4 +1,3 @@
-
 import java.io.Serializable;
 
 public class Recipe implements Serializable{
@@ -15,6 +14,5 @@ public class Recipe implements Serializable{
 		this.milk = milk;
 		this.sugar = sugar;
 		this.price = price;
-	}
-	
+	}	
 }

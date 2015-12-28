@@ -43,13 +43,12 @@ public class Engine {
 	}
 
 	public static void controlTeachersApproval() {
-		System.out.println("waiting for ready check from the teacher");
+		//System.out.println("waiting for ready check from the teacher");
 		while(!Engine.readyCheck||!Teacher.readyCheck){
 			try {
-				System.out.println("waiting for ready check from the teacher");		
+				//System.out.println("waiting for ready check from the teacher");		
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -62,10 +61,10 @@ public class Engine {
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
-
+		
 		//Then create a sorted ArrayList for iterating through shops with price in ascending order.
 		ArrayList<Shop> shops = new ArrayList<Shop>();
-		for(int i=1;i<=10;i++){
+		for(int i=1;i<=15;i++){
 			for(Shop shop: shopMap.values()){
 				if(shop.recipe.price==i){
 					shop.dailySales = 0;
@@ -85,14 +84,27 @@ public class Engine {
 		}
 
 		//Then send the rest of customers to shops according to price.
+		int indexCovered = 0;
 		index = 0;
 		while(customerPopulation>0&&index<shops.size()){
 			Shop shop = shops.get(index);
 			if(checkAvailabilityForOneSale(shop)){
-				shops.set(index,makeOneSale(shop));
-				customerPopulation--;
+				if(isCustomerWillingToBuy()){
+					shops.set(index,makeOneSale(shop));
+					customerPopulation--;
+					index = indexCovered;
+				}else{
+					if(index<(shops.size()-1)){
+						index++;
+					}else{
+						index = indexCovered;
+						customerPopulation--;
+					}
+				}
+				
 			}else{
 				index++;
+				indexCovered = index;
 			}
 		}
 
@@ -100,15 +112,6 @@ public class Engine {
 		for(Shop shop: shops){
 			shopMap.put(shop.name, shop);
 		}
-		/*
-		for(Shop shop : Engine.shopMap.values()){
-			//Currently making 3 sales for each shop without updating their inventory.
-			shop.balance+=3*shop.recipe.price;
-			shop.dailySales= 3;
-			shopMap.put(shop.name, shop);
-
-		}
-		 */
 	}
 
 	public static Shop makeOneSale(Shop shop){
@@ -121,6 +124,16 @@ public class Engine {
 		shop.inventory.setSugar(shop.inventory.getSugar()-shop.recipe.sugar);
 
 		return shop;
+	}
+	
+	public static boolean isCustomerWillingToBuy(){
+		boolean purchased = false;
+		
+		if(Customer.desireToBuy>Math.random()){
+			purchased = true;
+		}
+		
+		return purchased;
 	}
 
 	public static boolean checkAvailabilityForOneSale(Shop shop){
