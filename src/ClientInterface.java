@@ -22,6 +22,7 @@ public class ClientInterface {
 
 	public static JFrame frame;
 	public static String userName = "";
+	public static String IPAddress = "";
 	public int coffeeMix;
 	public int milkMix;
 	public int sugarMix;
@@ -417,6 +418,10 @@ public class ClientInterface {
 
 	public static void main (String [] args){
 		ClientInterface cl = new ClientInterface();
+		IPAddress = JOptionPane.showInputDialog(frame,
+                "Please enter the IP address of server:", null);
+		shop= new Shop(userName);
+		
 		userName = JOptionPane.showInputDialog(frame,
                 "What is your name?", null);
 		shop= new Shop(userName);
