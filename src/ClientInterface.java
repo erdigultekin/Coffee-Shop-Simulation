@@ -324,7 +324,7 @@ public class ClientInterface {
 					shop.dailySales = updatedShop.dailySales;
 					shop.day = updatedShop.day;
 					shop.inventory = updatedShop.inventory;
-
+					shop.inventory.milk = 0;
 					System.out.println("Daily sales: "+updatedShop.dailySales);
 
 					cupStockLabel.setText(""+shop.inventory.cups);
