@@ -18,6 +18,15 @@ public class Teacher {
 	public static boolean readyCheck;
 	public static int day;
 	private JFrame frame;
+	private JTextField betaOne;
+	private JTextField betaTwo;
+	private JTextField betaThree;
+	private JTextField alphaOne;
+	private JTextField alphaTwo;
+	private JTextField alphaThree;
+	private JTextField probabilityOne;
+	private JTextField probabilityTwo;
+	private JTextField probabilityThree;
 
 	public Teacher(){
 		playerList = new DefaultListModel();
@@ -33,7 +42,7 @@ public class Teacher {
 		cups = new DefaultListModel();
 		day = 1;
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 360);
+		frame.setBounds(100, 100, 900, 602);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -176,6 +185,103 @@ public class Teacher {
 		separator_1.setBackground(Color.BLACK);
 		separator_1.setBounds(610, 50, 5, 263);
 		frame.getContentPane().add(separator_1);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBounds(30, 323, 830, 20);
+		frame.getContentPane().add(separator_2);
+		
+		JLabel lblUtilityFunctions = new JLabel("Utility Functions");
+		lblUtilityFunctions.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblUtilityFunctions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUtilityFunctions.setBounds(198, 329, 214, 23);
+		frame.getContentPane().add(lblUtilityFunctions);
+		
+		JLabel lblFunction = new JLabel("Function 3");
+		lblFunction.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFunction.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFunction.setBounds(40, 436, 100, 20);
+		frame.getContentPane().add(lblFunction);
+		
+		JLabel label = new JLabel("Function 1");
+		label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(40, 374, 100, 20);
+		frame.getContentPane().add(label);
+		
+		JLabel lblFunction_1 = new JLabel("Function 2");
+		lblFunction_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFunction_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFunction_1.setBounds(40, 405, 100, 20);
+		frame.getContentPane().add(lblFunction_1);
+		
+		JLabel lblBeta = new JLabel("Beta");
+		lblBeta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBeta.setBounds(171, 354, 46, 14);
+		frame.getContentPane().add(lblBeta);
+		
+		betaOne = new JTextField();
+		betaOne.setBounds(150, 374, 86, 20);
+		frame.getContentPane().add(betaOne);
+		betaOne.setColumns(10);
+		
+		betaTwo = new JTextField();
+		betaTwo.setColumns(10);
+		betaTwo.setBounds(150, 405, 86, 20);
+		frame.getContentPane().add(betaTwo);
+		
+		betaThree = new JTextField();
+		betaThree.setColumns(10);
+		betaThree.setBounds(150, 436, 86, 20);
+		frame.getContentPane().add(betaThree);
+		
+		JLabel lblAlpha = new JLabel("Alpha");
+		lblAlpha.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlpha.setBounds(279, 354, 46, 14);
+		frame.getContentPane().add(lblAlpha);
+		
+		alphaOne = new JTextField();
+		alphaOne.setBounds(258, 374, 86, 20);
+		frame.getContentPane().add(alphaOne);
+		alphaOne.setColumns(10);
+		
+		alphaTwo = new JTextField();
+		alphaTwo.setColumns(10);
+		alphaTwo.setBounds(258, 405, 86, 20);
+		frame.getContentPane().add(alphaTwo);
+		
+		alphaThree = new JTextField();
+		alphaThree.setColumns(10);
+		alphaThree.setBounds(258, 436, 86, 20);
+		frame.getContentPane().add(alphaThree);
+		
+		JLabel lblProbability = new JLabel("Probability");
+		lblProbability.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProbability.setBounds(367, 354, 81, 14);
+		frame.getContentPane().add(lblProbability);
+		
+		probabilityOne = new JTextField();
+		probabilityOne.setBounds(362, 374, 86, 20);
+		frame.getContentPane().add(probabilityOne);
+		probabilityOne.setColumns(10);
+		
+		probabilityTwo = new JTextField();
+		probabilityTwo.setColumns(10);
+		probabilityTwo.setBounds(362, 405, 86, 20);
+		frame.getContentPane().add(probabilityTwo);
+		
+		probabilityThree = new JTextField();
+		probabilityThree.setColumns(10);
+		probabilityThree.setBounds(362, 436, 86, 20);
+		frame.getContentPane().add(probabilityThree);
+		
+		JSeparator separator_3 = new JSeparator();
+		separator_3.setOrientation(SwingConstants.VERTICAL);
+		separator_3.setBounds(539, 354, 27, 175);
+		frame.getContentPane().add(separator_3);
+		
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(160, 473, 240, 56);
+		frame.getContentPane().add(btnSubmit);
 
 		frame.setVisible(true);
 
