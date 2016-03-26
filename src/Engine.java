@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javax.swing.JList;
@@ -57,11 +58,17 @@ public class Engine {
 	public static Shop getProperShop(Shop shop){
 		return shopMap.get(shop.name);
 	}
-
+	
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
+		//Create the arraylist
+		ArrayList<Shop> shops = new ArrayList<Shop>();
+		for(Shop shop : shopMap.values()){
+			shops.add(shop);
+		}
 		
+		/*
 		//Then create a sorted ArrayList for iterating through shops with price in ascending order.
 		ArrayList<Shop> shops = new ArrayList<Shop>();
 		for(int i=1;i<=15;i++){
@@ -107,7 +114,7 @@ public class Engine {
 				indexCovered = index;
 			}
 		}
-
+		*/
 		//Then update the hashmap with new shops;
 		for(Shop shop: shops){
 			shopMap.put(shop.name, shop);

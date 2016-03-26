@@ -18,4 +18,20 @@ public class Shop implements Serializable{
 		this.name = name;
 		this.inventory = new Inventory(0,0,0,0);
 	}
+	
+	public boolean hasHigherPriceThan(Shop shop){
+		if(this.recipe.price>shop.recipe.price){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public boolean hasLowerPriceThan(Shop shop){
+		if(this.recipe.price>shop.recipe.price){
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
