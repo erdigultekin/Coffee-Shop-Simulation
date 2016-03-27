@@ -63,7 +63,7 @@ public class Engine {
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
 		
-		//Create the customers
+		//Create the customers with types.
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		for(int i=0;i<customerPopulation;i++){
 			double r = Math.random();
@@ -75,6 +75,7 @@ public class Engine {
 				customers.add(new Customer(3));
 			}
 		}
+		
 		//Create the arraylist
 		ArrayList<Shop> shops = new ArrayList<Shop>();
 		for(Shop shop : shopMap.values()){

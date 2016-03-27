@@ -7,7 +7,7 @@ public class Model {
 	 */
 	static double coffeeMax = 15.0;
 	static double milkMax = 200.0;
-	static double sugarMax = 15.0;
+	static double sugarMax = 10.0;
 	
 	/*
 	 * Quality calculation represented here with 4 parts:
@@ -21,7 +21,7 @@ public class Model {
 
 	private static double calculateQ3(Shop s) {
 		double ingredientRatio = s.recipe.sugar/sugarMax;
-		if(ingredientRatio<0.67){
+		if(ingredientRatio<((double) (2/3))){
 			return (1.5)*ingredientRatio;
 		}else{
 			return (1-ingredientRatio)*3;
@@ -30,7 +30,7 @@ public class Model {
 
 	private static double calculateQ2(Shop s) {
 		double ingredientRatio = s.recipe.milk/milkMax;
-		if(ingredientRatio<0.67){
+		if(ingredientRatio<((double) (2/3))){
 			return (1.5)*ingredientRatio;
 		}else{
 			return (1-ingredientRatio)*3;
@@ -39,7 +39,7 @@ public class Model {
 
 	private static double calculateQ1(Shop s) {
 		double ingredientRatio = s.recipe.coffee/coffeeMax;
-		if(ingredientRatio<0.67){
+		if(ingredientRatio<((double) (2/3))){
 			return (1.5)*ingredientRatio;
 		}else{
 			return (1-ingredientRatio)*(1.5)+0.5;
