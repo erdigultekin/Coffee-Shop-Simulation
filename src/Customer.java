@@ -1,9 +1,10 @@
 
 public class Customer {
-	public static double desireToBuy = 0.5;
+	//customer has a type 1,2 or 3.
+	int type;
 	
-	public Customer(){
-		
+	public Customer(int type){
+		this.type=type;
 	}
 	
 	

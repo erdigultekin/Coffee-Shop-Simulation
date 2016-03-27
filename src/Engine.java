@@ -62,6 +62,19 @@ public class Engine {
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
+		
+		//Create the customers
+		ArrayList<Customer> customers = new ArrayList<Customer>();
+		for(int i=0;i<customerPopulation;i++){
+			double r = Math.random();
+			if(0<=r&&r<Model.probabilityOne){
+				customers.add(new Customer(1));
+			}else if(Model.probabilityOne<=r&&r<(Model.probabilityOne+Model.probabilityTwo)){
+				customers.add(new Customer(2));
+			}else{
+				customers.add(new Customer(3));
+			}
+		}
 		//Create the arraylist
 		ArrayList<Shop> shops = new ArrayList<Shop>();
 		for(Shop shop : shopMap.values()){
@@ -131,16 +144,6 @@ public class Engine {
 		shop.inventory.setSugar(shop.inventory.getSugar()-shop.recipe.sugar);
 
 		return shop;
-	}
-	
-	public static boolean isCustomerWillingToBuy(){
-		boolean purchased = false;
-		
-		if(Customer.desireToBuy>Math.random()){
-			purchased = true;
-		}
-		
-		return purchased;
 	}
 
 	public static boolean checkAvailabilityForOneSale(Shop shop){
