@@ -1,4 +1,3 @@
-
 public class Model {
 	
 	/*
@@ -17,11 +16,7 @@ public class Model {
 	 */
 	
 	public static double calculateQuality(Shop s){
-		double Qtotal = 1.0;
-		
-		Qtotal = calculateQ1(s) * (1+calculateQ2(s))*(1+calculateQ3(s));
-		
-		return Qtotal;
+		return (calculateQ1(s) * (1+calculateQ2(s))*(1+calculateQ3(s)));
 	}
 
 	private static double calculateQ3(Shop s) {
@@ -49,5 +44,41 @@ public class Model {
 		}else{
 			return (1-ingredientRatio)*(1.5)+0.5;
 		}
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	
+	/*
+	 * Parameters for utility functions are updated here after "Run Simulation" Button clicked.
+	 * Note: Probability will only be used while creating a customer type. 
+	 *       For example type1 customer will use U1(utility fuction 1) to decide on which shop to buy the coffee from.
+	 */
+	
+	static double betaOne = 0.0;
+	static double betaTwo = 0.0;
+	static double betaThree = 0.0;
+	static double alphaOne = 0.0;
+	static double alphaTwo = 0.0;
+	static double alphaThree = 0.0;
+	static double probabilityOne = 0.0;
+	static double probabilityTwo = 0.0;
+	static double probabilityThree = 0.0;
+	
+	/*
+	 * Utility functions are represented here:
+	 * 		U1,U2,U3
+	 * 
+	 */
+	
+	static double calculateU1(Shop s){
+		return (betaOne*calculateQuality(s)-alphaOne*s.recipe.price);
+	}
+	
+	static double calculateU2(Shop s){
+		return (betaTwo*calculateQuality(s)-alphaTwo*s.recipe.price);
+	}
+	
+	static double calculateU3(Shop s){
+		return (betaThree*calculateQuality(s)-alphaThree*s.recipe.price);
 	}
 }
