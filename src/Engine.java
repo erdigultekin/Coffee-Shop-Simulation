@@ -58,11 +58,11 @@ public class Engine {
 	public static Shop getProperShop(Shop shop){
 		return shopMap.get(shop.name);
 	}
-	
+
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
-		
+
 		//Create the customers with types.
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		for(int i=0;i<customerPopulation;i++){
@@ -75,13 +75,28 @@ public class Engine {
 				customers.add(new Customer(3));
 			}
 		}
-		
-		//Create the arraylist
+
+		//Create the Line Segment Representations
 		ArrayList<Shop> shops = new ArrayList<Shop>();
+		LineSegmentUtilityRepresentation lsur1 = new LineSegmentUtilityRepresentation();
+		LineSegmentUtilityRepresentation lsur2 = new LineSegmentUtilityRepresentation();
+		LineSegmentUtilityRepresentation lsur3 = new LineSegmentUtilityRepresentation();
 		for(Shop shop : shopMap.values()){
 			shops.add(shop);
+			lsur1.addUtilitySegment(shop.name, Model.calculateU1(shop));
+			lsur2.addUtilitySegment(shop.name, Model.calculateU2(shop));
+			lsur3.addUtilitySegment(shop.name, Model.calculateU3(shop));
 		}
-		
+
+		for(Customer c : customers){
+			if(c.type==1){
+				sendOneCustomerToAShop(c,lsur1);
+			}else if(c.type==2){
+				sendOneCustomerToAShop(c,lsur2);				
+			}else{
+				sendOneCustomerToAShop(c,lsur3);
+			}
+		}
 		/*
 		//Then create a sorted ArrayList for iterating through shops with price in ascending order.
 		ArrayList<Shop> shops = new ArrayList<Shop>();
@@ -122,20 +137,43 @@ public class Engine {
 						customerPopulation--;
 					}
 				}
-				
+
 			}else{
 				index++;
 				indexCovered = index;
 			}
 		}
-		*/
+		 */
 		//Then update the hashmap with new shops;
 		for(Shop shop: shops){
 			shopMap.put(shop.name, shop);
 		}
 	}
 
-	public static Shop makeOneSale(Shop shop){
+	public static void sendOneCustomerToAShop(Customer c, LineSegmentUtilityRepresentation lsur){
+		while(c.blockedUtilitySize<lsur.lastUtilityPoint&&c.retryCount>0){
+			double randomPoint= Math.random()*lsur.lastUtilityPoint;
+			boolean nextStep = true;
+			for(LineSegment ls : c.blockedLineSegments){
+				if(ls.isPointOnSegment(randomPoint)){
+					nextStep = false;
+				}
+			}
+			if(nextStep){
+				String correspondingShopName = lsur.findCorrespondingShopforUtility(randomPoint);
+				if(checkAvailabilityForOneSale(shopMap.get(correspondingShopName))){
+					makeOneSale(shopMap.get(correspondingShopName));
+				}else{
+					LineSegment correspondingLineSegment = lsur.findCorrespondingLineSegmentforUtility(randomPoint);
+					c.blockedUtilitySize += correspondingLineSegment.end-correspondingLineSegment.start;
+					c.blockedLineSegments.add(correspondingLineSegment);
+					c.retryCount--;
+				}
+			}
+		}
+	}
+
+	public static void makeOneSale(Shop shop){
 		shop.balance+=shop.recipe.price;
 		shop.dailySales++;
 
@@ -144,7 +182,7 @@ public class Engine {
 		shop.inventory.setMilk(shop.inventory.getMilk()-shop.recipe.milk);
 		shop.inventory.setSugar(shop.inventory.getSugar()-shop.recipe.sugar);
 
-		return shop;
+		shopMap.put(shop.name, shop);
 	}
 
 	public static boolean checkAvailabilityForOneSale(Shop shop){
