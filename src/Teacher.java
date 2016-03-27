@@ -298,6 +298,17 @@ public class Teacher {
 				if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
 				if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
 				
+				double p1 = Double.parseDouble(probabilityOne.getText());
+				double p2 = Double.parseDouble(probabilityTwo.getText());
+				double p3 = Double.parseDouble(probabilityThree.getText());
+				
+				double np1 = p1 / (p1 + p2 + p3);
+				double np2 = p2 / (p1 + p2 + p3);
+				double np3 = 1.0 - np1 - np2;
+				double probability = np1 + np2 + np3;
+				
+				if(probability != 1.0) utiltyFunctionsFilled = false;
+				
 				if(utiltyFunctionsFilled){
 				
 				Engine.sendCustomersToShops();
