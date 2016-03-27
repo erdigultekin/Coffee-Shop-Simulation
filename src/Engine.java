@@ -163,6 +163,7 @@ public class Engine {
 				String correspondingShopName = lsur.findCorrespondingShopforUtility(randomPoint);
 				if(checkAvailabilityForOneSale(shopMap.get(correspondingShopName))){
 					makeOneSale(shopMap.get(correspondingShopName));
+					break;
 				}else{
 					LineSegment correspondingLineSegment = lsur.findCorrespondingLineSegmentforUtility(randomPoint);
 					c.blockedUtilitySize += correspondingLineSegment.end-correspondingLineSegment.start;

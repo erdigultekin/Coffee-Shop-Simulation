@@ -73,14 +73,20 @@ public class Model {
 	 */
 	
 	static double calculateU1(Shop s){
-		return (betaOne*calculateQuality(s)-alphaOne*s.recipe.price);
+		double utility = (betaOne*calculateQuality(s)-alphaOne*s.recipe.price);
+		if(utility>0) return utility;
+		else return 0;
 	}
 	
 	static double calculateU2(Shop s){
-		return (betaTwo*calculateQuality(s)-alphaTwo*s.recipe.price);
+		double utility = (betaTwo*calculateQuality(s)-alphaTwo*s.recipe.price);
+		if(utility>0) return utility;
+		else return 0;
 	}
 	
 	static double calculateU3(Shop s){
-		return (betaThree*calculateQuality(s)-alphaThree*s.recipe.price);
+		double utility = (betaThree*calculateQuality(s)-alphaThree*s.recipe.price);
+		if(utility>0) return utility;
+		else return 0;
 	}
 }
