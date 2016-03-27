@@ -280,7 +280,7 @@ public class Teacher {
 		frame.getContentPane().add(separator_3);
 
 		frame.setVisible(true);
-		
+	
 
 		runButton.addActionListener(new ActionListener()
 		{
@@ -299,6 +299,8 @@ public class Teacher {
 				if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
 				if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
 				
+				
+				
 				if(!probabilityOne.getText().isEmpty() || !probabilityTwo.getText().isEmpty() || !probabilityThree.getText().isEmpty() ) {
 				double p1 = Double.parseDouble(probabilityOne.getText());
 				double p2 = Double.parseDouble(probabilityTwo.getText());
@@ -314,10 +316,25 @@ public class Teacher {
 				}
 				
 				if(utiltyFunctionsFilled){
-					
-				Model.setBetas(Double.parseDouble(betaOne.getText()), Double.parseDouble(betaTwo.getText()), Double.parseDouble(betaThree.getText()));
-				Model.setAlphas(Double.parseDouble(alphaOne.getText()), Double.parseDouble(alphaTwo.getText()), Double.parseDouble(alphaThree.getText()));
-				Model.setProbabilities(Double.parseDouble(probabilityOne.getText()), Double.parseDouble(probabilityTwo.getText()), Double.parseDouble(probabilityThree.getText()));
+				
+				Model.alphaOne = Double.parseDouble(alphaOne.getText());
+				Model.alphaTwo = Double.parseDouble(alphaTwo.getText());
+				Model.alphaThree = Double.parseDouble(alphaThree.getText());
+				Model.betaOne = Double.parseDouble(betaOne.getText());
+				Model.betaTwo = Double.parseDouble(betaTwo.getText());
+				Model.betaThree = Double.parseDouble(betaThree.getText());
+				
+				double p1 = Double.parseDouble(probabilityOne.getText());
+				double p2 = Double.parseDouble(probabilityTwo.getText());
+				double p3 = Double.parseDouble(probabilityThree.getText());
+				
+				double np1 = p1 / (p1 + p2 + p3);
+				double np2 = p2 / (p1 + p2 + p3);
+				double np3 = 1.0 - np1 - np2;
+				
+				Model.probabilityOne = np1;
+				Model.probabilityTwo = np2;
+				Model.probabilityThree = np3;
 				
 				Engine.sendCustomersToShops();
 

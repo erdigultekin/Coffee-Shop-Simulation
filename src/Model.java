@@ -64,23 +64,6 @@ public class Model {
 	static double probabilityTwo = 0.0;
 	static double probabilityThree = 0.0;
 	
-	public static void setBetas(double b1, double b2, double b3) {
-		betaOne = b1;
-		betaTwo = b2;
-		betaThree = b3;
-	}
-	
-	public static void setAlphas(double a1, double a2, double a3) {
-		alphaOne = a1;
-		alphaTwo = a2;
-		alphaThree = a3;
-	}
-	
-	public static void setProbabilities(double p1, double p2, double p3) {
-		probabilityOne = p1;
-		probabilityTwo = p2;
-		probabilityThree = p3;
-	}
 	
 	
 	/*
