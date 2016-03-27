@@ -65,8 +65,8 @@ public class ClientInterface {
 		frame.getContentPane().add(lblNewLabel);
 
 		JSlider coffeePerCup = new JSlider();
-		coffeePerCup.setValue(5);
-		coffeePerCup.setMaximum(10);
+		coffeePerCup.setValue(10);
+		coffeePerCup.setMaximum(15);
 		coffeePerCup.setBounds(100, 90, 100, 20);
 		frame.getContentPane().add(coffeePerCup);
 
@@ -75,6 +75,8 @@ public class ClientInterface {
 		frame.getContentPane().add(lblCoffee);
 
 		JSlider milkPerCup = new JSlider();
+		milkPerCup.setValue(130);
+		milkPerCup.setMaximum(200);
 		milkPerCup.setBounds(100, 120, 100, 20);
 		frame.getContentPane().add(milkPerCup);
 
@@ -84,7 +86,7 @@ public class ClientInterface {
 
 		JSlider sugarPerCup = new JSlider();
 		sugarPerCup.setMaximum(10);
-		sugarPerCup.setValue(5);
+		sugarPerCup.setValue(6);
 		sugarPerCup.setBounds(100, 150, 100, 20);
 		frame.getContentPane().add(sugarPerCup);
 
@@ -206,15 +208,15 @@ public class ClientInterface {
 		milkPriceLabel.setBounds(510, 190, 46, 14);
 		frame.getContentPane().add(milkPriceLabel);
 
-		JLabel coffeeSliderLabel = new JLabel("5");
+		JLabel coffeeSliderLabel = new JLabel("10");
 		coffeeSliderLabel.setBounds(205, 90, 25, 15);
 		frame.getContentPane().add(coffeeSliderLabel);
 
-		JLabel milkSliderLabel = new JLabel("50");
+		JLabel milkSliderLabel = new JLabel("130");
 		milkSliderLabel.setBounds(205, 120, 25, 15);
 		frame.getContentPane().add(milkSliderLabel);
 
-		JLabel sugarSliderLabel = new JLabel("5");
+		JLabel sugarSliderLabel = new JLabel("6");
 		sugarSliderLabel.setBounds(205, 150, 25, 15);
 		frame.getContentPane().add(sugarSliderLabel);
 
