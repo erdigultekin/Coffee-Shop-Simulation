@@ -41,6 +41,7 @@ public class ClientInterface {
 	public double cupUnitPrice = 0.1;
 	public static Shop shop;
 	public Shop updatedShop;
+	private JTextField priceField;
 
 	public  ClientInterface() {
 		frame = new JFrame();
@@ -220,17 +221,6 @@ public class ClientInterface {
 		sugarSliderLabel.setBounds(205, 150, 25, 15);
 		frame.getContentPane().add(sugarSliderLabel);
 
-		JSlider priceSlider = new JSlider();
-		priceSlider.setMaximum(15);
-		priceSlider.setMinimum(1);
-		priceSlider.setValue(1);
-		priceSlider.setBounds(100, 180, 100, 20);
-		frame.getContentPane().add(priceSlider);
-
-		JLabel priceSliderLabel = new JLabel("1");
-		priceSliderLabel.setBounds(205, 180, 25, 15);
-		frame.getContentPane().add(priceSliderLabel);
-
 		JSlider cupOrderSlider = new JSlider();
 		cupOrderSlider.setMaximum(50);
 		cupOrderSlider.setValue(0);
@@ -270,6 +260,11 @@ public class ClientInterface {
 		JLabel milkOrderLabel = new JLabel("0");
 		milkOrderLabel.setBounds(480, 190, 25, 15);
 		frame.getContentPane().add(milkOrderLabel);
+		
+		JTextField priceField = new DoubleJTextField();
+		priceField.setBounds(100, 180, 100, 20);
+		frame.getContentPane().add(priceField);
+		priceField.setColumns(10);
 		frame.setVisible(true);
 
 		buyButton.addActionListener(new ActionListener()
@@ -314,7 +309,7 @@ public class ClientInterface {
 				submitButton.setEnabled(false);
 				buyButton.setEnabled(false);
 
-				Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(),priceSlider.getValue());
+				Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(), Double.parseDouble(priceField.getText()));
 				shop.recipe = recipe;
 
 				status = "Sending data...";
@@ -372,15 +367,6 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				sugarSliderLabel.setText(""+sugarPerCup.getValue());
-			}
-		});
-
-
-		priceSlider.addChangeListener(new ChangeListener()
-		{
-			public void stateChanged(ChangeEvent e)
-			{
-				priceSliderLabel.setText(""+priceSlider.getValue());
 			}
 		});
 

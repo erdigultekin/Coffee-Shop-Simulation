@@ -7,9 +7,9 @@ public class Recipe implements Serializable{
 	int coffee;
 	int milk;
 	int sugar;
-	int price;
+	double price;
 	
-	public Recipe(int coffee, int milk, int sugar, int price){
+	public Recipe(int coffee, int milk, int sugar, double price){
 		this.coffee = coffee;
 		this.milk = milk;
 		this.sugar = sugar;
