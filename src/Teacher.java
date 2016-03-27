@@ -280,12 +280,13 @@ public class Teacher {
 		frame.getContentPane().add(separator_3);
 
 		frame.setVisible(true);
-	
+		
 
 		runButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				
 				boolean utiltyFunctionsFilled = true;
 				
 				if(betaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
@@ -298,6 +299,7 @@ public class Teacher {
 				if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
 				if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
 				
+				if(!probabilityOne.getText().isEmpty() || !probabilityTwo.getText().isEmpty() || !probabilityThree.getText().isEmpty() ) {
 				double p1 = Double.parseDouble(probabilityOne.getText());
 				double p2 = Double.parseDouble(probabilityTwo.getText());
 				double p3 = Double.parseDouble(probabilityThree.getText());
@@ -308,6 +310,8 @@ public class Teacher {
 				double probability = np1 + np2 + np3;
 				
 				if(probability != 1.0) utiltyFunctionsFilled = false;
+				
+				}
 				
 				if(utiltyFunctionsFilled){
 				
