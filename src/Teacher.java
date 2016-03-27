@@ -287,54 +287,9 @@ public class Teacher {
 			public void actionPerformed(ActionEvent e)
 			{
 				
-				boolean utiltyFunctionsFilled = true;
+				if(checkUtilityFunctions()){
 				
-				if(betaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(betaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(betaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(alphaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(alphaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(alphaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(probabilityOne.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
-				if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
-				
-				
-				
-				if(!probabilityOne.getText().isEmpty() || !probabilityTwo.getText().isEmpty() || !probabilityThree.getText().isEmpty() ) {
-				double p1 = Double.parseDouble(probabilityOne.getText());
-				double p2 = Double.parseDouble(probabilityTwo.getText());
-				double p3 = Double.parseDouble(probabilityThree.getText());
-				
-				double np1 = p1 / (p1 + p2 + p3);
-				double np2 = p2 / (p1 + p2 + p3);
-				double np3 = 1.0 - np1 - np2;
-				double probability = np1 + np2 + np3;
-				
-				if(probability != 1.0) utiltyFunctionsFilled = false;
-				
-				}
-				
-				if(utiltyFunctionsFilled){
-				
-				Model.alphaOne = Double.parseDouble(alphaOne.getText());
-				Model.alphaTwo = Double.parseDouble(alphaTwo.getText());
-				Model.alphaThree = Double.parseDouble(alphaThree.getText());
-				Model.betaOne = Double.parseDouble(betaOne.getText());
-				Model.betaTwo = Double.parseDouble(betaTwo.getText());
-				Model.betaThree = Double.parseDouble(betaThree.getText());
-				
-				double p1 = Double.parseDouble(probabilityOne.getText());
-				double p2 = Double.parseDouble(probabilityTwo.getText());
-				double p3 = Double.parseDouble(probabilityThree.getText());
-				
-				double np1 = p1 / (p1 + p2 + p3);
-				double np2 = p2 / (p1 + p2 + p3);
-				double np3 = 1.0 - np1 - np2;
-				
-				Model.probabilityOne = np1;
-				Model.probabilityTwo = np2;
-				Model.probabilityThree = np3;
+				setUtilityFunctions();
 				
 				Engine.sendCustomersToShops();
 
@@ -361,5 +316,55 @@ public class Teacher {
 			}
 		});
 
+	
+	
+	}
+	public boolean checkUtilityFunctions() {
+		
+		boolean utiltyFunctionsFilled = true;
+		
+		if(betaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(betaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(betaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(alphaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(alphaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(alphaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(probabilityOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+		if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+		
+		if(!probabilityOne.getText().isEmpty() || !probabilityTwo.getText().isEmpty() || !probabilityThree.getText().isEmpty() ) {
+			double p1 = Double.parseDouble(probabilityOne.getText());
+			double p2 = Double.parseDouble(probabilityTwo.getText());
+			double p3 = Double.parseDouble(probabilityThree.getText());
+			double np1 = p1 / (p1 + p2 + p3);
+			double np2 = p2 / (p1 + p2 + p3);
+			double np3 = 1.0 - np1 - np2;
+			double probability = np1 + np2 + np3;
+			if(probability != 1.0) utiltyFunctionsFilled = false;
+		}
+		
+		return utiltyFunctionsFilled;
+	}
+	
+	public void setUtilityFunctions(){
+		Model.alphaOne = Double.parseDouble(alphaOne.getText());
+		Model.alphaTwo = Double.parseDouble(alphaTwo.getText());
+		Model.alphaThree = Double.parseDouble(alphaThree.getText());
+		Model.betaOne = Double.parseDouble(betaOne.getText());
+		Model.betaTwo = Double.parseDouble(betaTwo.getText());
+		Model.betaThree = Double.parseDouble(betaThree.getText());
+		
+		double p1 = Double.parseDouble(probabilityOne.getText());
+		double p2 = Double.parseDouble(probabilityTwo.getText());
+		double p3 = Double.parseDouble(probabilityThree.getText());
+		
+		double np1 = p1 / (p1 + p2 + p3);
+		double np2 = p2 / (p1 + p2 + p3);
+		double np3 = 1.0 - np1 - np2;
+		
+		Model.probabilityOne = np1;
+		Model.probabilityTwo = np2;
+		Model.probabilityThree = np3;
 	}
 }
