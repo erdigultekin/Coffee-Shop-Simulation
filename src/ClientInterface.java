@@ -41,7 +41,7 @@ public class ClientInterface {
 	public double cupUnitPrice = 0.1;
 	public static Shop shop;
 	public Shop updatedShop;
-	private JTextField priceField;
+	
 
 	public  ClientInterface() {
 		frame = new JFrame();

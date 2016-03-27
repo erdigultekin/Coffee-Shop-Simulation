@@ -18,15 +18,15 @@ public class Teacher {
 	public static boolean readyCheck;
 	public static int day;
 	private JFrame frame;
-	private JTextField betaOne;
-	private JTextField betaTwo;
-	private JTextField betaThree;
-	private JTextField alphaOne;
-	private JTextField alphaTwo;
-	private JTextField alphaThree;
-	private JTextField probabilityOne;
-	private JTextField probabilityTwo;
-	private JTextField probabilityThree;
+	public static JTextField betaOne;
+	public static JTextField betaTwo;
+	public static JTextField betaThree;
+	public static JTextField alphaOne;
+	public static JTextField alphaTwo;
+	public static JTextField alphaThree;
+	public static JTextField probabilityOne;
+	public static JTextField probabilityTwo;
+	public static JTextField probabilityThree;
 
 	public Teacher(){
 		playerList = new DefaultListModel();
@@ -42,7 +42,7 @@ public class Teacher {
 		cups = new DefaultListModel();
 		day = 1;
 		frame = new JFrame();
-		frame.setBounds(100, 100, 900, 602);
+		frame.setBounds(100, 100, 894, 506);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -219,17 +219,17 @@ public class Teacher {
 		lblBeta.setBounds(171, 354, 46, 14);
 		frame.getContentPane().add(lblBeta);
 		
-		betaOne = new JTextField();
+		betaOne = new DoubleJTextField();
 		betaOne.setBounds(150, 374, 86, 20);
 		frame.getContentPane().add(betaOne);
 		betaOne.setColumns(10);
 		
-		betaTwo = new JTextField();
+		betaTwo = new DoubleJTextField();
 		betaTwo.setColumns(10);
 		betaTwo.setBounds(150, 405, 86, 20);
 		frame.getContentPane().add(betaTwo);
 		
-		betaThree = new JTextField();
+		betaThree = new DoubleJTextField();
 		betaThree.setColumns(10);
 		betaThree.setBounds(150, 436, 86, 20);
 		frame.getContentPane().add(betaThree);
@@ -239,17 +239,17 @@ public class Teacher {
 		lblAlpha.setBounds(279, 354, 46, 14);
 		frame.getContentPane().add(lblAlpha);
 		
-		alphaOne = new JTextField();
+		alphaOne = new DoubleJTextField();
 		alphaOne.setBounds(258, 374, 86, 20);
 		frame.getContentPane().add(alphaOne);
 		alphaOne.setColumns(10);
 		
-		alphaTwo = new JTextField();
+		alphaTwo = new DoubleJTextField();
 		alphaTwo.setColumns(10);
 		alphaTwo.setBounds(258, 405, 86, 20);
 		frame.getContentPane().add(alphaTwo);
 		
-		alphaThree = new JTextField();
+		alphaThree = new DoubleJTextField();
 		alphaThree.setColumns(10);
 		alphaThree.setBounds(258, 436, 86, 20);
 		frame.getContentPane().add(alphaThree);
@@ -259,36 +259,47 @@ public class Teacher {
 		lblProbability.setBounds(367, 354, 81, 14);
 		frame.getContentPane().add(lblProbability);
 		
-		probabilityOne = new JTextField();
+		probabilityOne = new DoubleJTextField();
 		probabilityOne.setBounds(362, 374, 86, 20);
 		frame.getContentPane().add(probabilityOne);
 		probabilityOne.setColumns(10);
 		
-		probabilityTwo = new JTextField();
+		probabilityTwo = new DoubleJTextField();
 		probabilityTwo.setColumns(10);
 		probabilityTwo.setBounds(362, 405, 86, 20);
 		frame.getContentPane().add(probabilityTwo);
 		
-		probabilityThree = new JTextField();
+		probabilityThree = new DoubleJTextField();
 		probabilityThree.setColumns(10);
 		probabilityThree.setBounds(362, 436, 86, 20);
 		frame.getContentPane().add(probabilityThree);
 		
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
-		separator_3.setBounds(539, 354, 27, 175);
+		separator_3.setBounds(490, 354, 27, 99);
 		frame.getContentPane().add(separator_3);
-		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(160, 473, 240, 56);
-		frame.getContentPane().add(btnSubmit);
 
 		frame.setVisible(true);
+	
 
 		runButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				boolean utiltyFunctionsFilled = true;
+				
+				if(betaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(betaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(betaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(alphaOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(alphaTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(alphaThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(probabilityOne.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(probabilityTwo.getText().isEmpty()) utiltyFunctionsFilled = false;
+				if(probabilityThree.getText().isEmpty()) utiltyFunctionsFilled = false;
+				
+				if(utiltyFunctionsFilled){
+				
 				Engine.sendCustomersToShops();
 
 				Engine.readyCheck = true;
@@ -307,6 +318,10 @@ public class Teacher {
 				Teacher.readyCheck = false;
 			
 				Engine.clearPlaylist();
+			}else{
+				JOptionPane.showMessageDialog(null,"Please fill the utility function variables properly!","Error",JOptionPane.WARNING_MESSAGE);
+			}
+				
 			}
 		});
 
