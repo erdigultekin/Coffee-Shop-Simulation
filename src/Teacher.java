@@ -314,6 +314,10 @@ public class Teacher {
 				}
 				
 				if(utiltyFunctionsFilled){
+					
+				Model.setBetas(Double.parseDouble(betaOne.getText()), Double.parseDouble(betaTwo.getText()), Double.parseDouble(betaThree.getText()));
+				Model.setAlphas(Double.parseDouble(alphaOne.getText()), Double.parseDouble(alphaTwo.getText()), Double.parseDouble(alphaThree.getText()));
+				Model.setProbabilities(Double.parseDouble(probabilityOne.getText()), Double.parseDouble(probabilityTwo.getText()), Double.parseDouble(probabilityThree.getText()));
 				
 				Engine.sendCustomersToShops();
 
