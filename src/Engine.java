@@ -62,7 +62,7 @@ public class Engine {
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*20;
-
+		System.out.println("Customer population : "+customerPopulation);
 		//Create the customers with types.
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		for(int i=0;i<customerPopulation;i++){
@@ -151,8 +151,17 @@ public class Engine {
 	}
 
 	public static void sendOneCustomerToAShop(Customer c, LineSegmentUtilityRepresentation lsur){
+		//System.out.println("#####sendOneCustomerToAShop#####");
+		//System.out.println("Customer has type : "+c.type);
+		//System.out.println("Customer's line segment utility representation ends at : "+lsur.lastUtilityPoint);
+		/*
+		for(LineSegment ls : lsur.shopSegmentMap.keySet()){
+			System.out.println("Line Segment start: "+ls.start+" end: "+ls.end+" stands for shop: "+lsur.shopSegmentMap.get(ls));
+		}
+		*/
 		while(c.blockedUtilitySize<lsur.lastUtilityPoint&&c.retryCount>0){
 			double randomPoint= Math.random()*lsur.lastUtilityPoint;
+			//System.out.println("Random point is :"+randomPoint);
 			boolean nextStep = true;
 			for(LineSegment ls : c.blockedLineSegments){
 				if(ls.isPointOnSegment(randomPoint)){
@@ -161,12 +170,13 @@ public class Engine {
 			}
 			if(nextStep){
 				String correspondingShopName = lsur.findCorrespondingShopforUtility(randomPoint);
+				//System.out.println("Shop chosen for sale: "+correspondingShopName);
 				if(checkAvailabilityForOneSale(shopMap.get(correspondingShopName))){
 					makeOneSale(shopMap.get(correspondingShopName));
 					break;
 				}else{
 					LineSegment correspondingLineSegment = lsur.findCorrespondingLineSegmentforUtility(randomPoint);
-					c.blockedUtilitySize += correspondingLineSegment.end-correspondingLineSegment.start;
+					c.blockedUtilitySize += (correspondingLineSegment.end-correspondingLineSegment.start);
 					c.blockedLineSegments.add(correspondingLineSegment);
 					c.retryCount--;
 				}

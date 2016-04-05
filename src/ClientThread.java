@@ -47,6 +47,14 @@ public class ClientThread extends Thread{
 			if(!Engine.checkDayConsistency(shop)){
 				//Mistaken shops drop here. Send them properly.
 				out.writeObject(shop);
+				for(int i=0; i<Server.clientsConnected.length;i++){
+					if(Server.clientsConnected[i]!=null){
+						if(Server.clientsConnected[i].equals(this)){
+							Server.clientsConnected[i] = null;
+						}
+					}
+				}
+				return;
 			}
 
 			Engine.updatePlayerList(shop);
