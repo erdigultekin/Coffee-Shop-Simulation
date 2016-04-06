@@ -56,6 +56,8 @@ public class ClientThread extends Thread{
 				}
 				return;
 			}
+			
+			shop.dailySales = 0;
 
 			Engine.updatePlayerList(shop);
 
