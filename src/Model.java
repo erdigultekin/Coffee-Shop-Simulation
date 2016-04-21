@@ -74,19 +74,40 @@ public class Model {
 	
 	static double calculateU1(Shop s){
 		double utility = (betaOne*calculateQuality(s)-alphaOne*s.recipe.price);
-		if(utility>0) return utility;
-		else return 0;
+		System.out.println("Shop: "+s.name+" Beta1:" + betaOne+ " Qualitiy 1: " + calculateQuality(s) + " Alpha1: " + alphaOne+ " Price: "+ s.recipe.price);
+		if(utility>0) {
+			System.out.println("Utility 1: " + utility);
+			return utility;
+			}
+		else {
+			System.out.println("Utility 1: 0");
+			return 0;
+			}
 	}
 	
 	static double calculateU2(Shop s){
 		double utility = (betaTwo*calculateQuality(s)-alphaTwo*s.recipe.price);
-		if(utility>0) return utility;
-		else return 0;
+		System.out.println("Shop: "+s.name+" Beta2:" + betaOne+ " Qualitiy 2: " + calculateQuality(s) + " Alpha2: " + alphaOne+ " Price: "+ s.recipe.price);
+		if(utility>0) {
+			System.out.println("Utility 2: " + utility);
+			return utility;
+			}
+		else {
+			System.out.println("Utility 2: 0");
+			return 0;
+			}
 	}
 	
 	static double calculateU3(Shop s){
 		double utility = (betaThree*calculateQuality(s)-alphaThree*s.recipe.price);
-		if(utility>0) return utility;
-		else return 0;
+		System.out.println("Shop: "+s.name+" Beta3:" + betaOne+ " Qualitiy 3: " + calculateQuality(s) + " Alpha3: " + alphaOne+ " Price: "+ s.recipe.price);
+		if(utility>0) {
+			System.out.println("Utility 3: " + utility);
+			return utility;
+			}
+		else {
+			System.out.println("Utility 3: 0");
+			return 0;
+			}
 	}
 }

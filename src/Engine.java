@@ -67,11 +67,15 @@ public class Engine {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		for(int i=0;i<customerPopulation;i++){
 			double r = Math.random();
+			
 			if(0<=r&&r<Model.probabilityOne){
+				System.out.println("Customer " + i + " hestype: 1");
 				customers.add(new Customer(1));
 			}else if(Model.probabilityOne<=r&&r<(Model.probabilityOne+Model.probabilityTwo)){
+				System.out.println("Customer " + i + " hestype: 2");
 				customers.add(new Customer(2));
 			}else{
+				System.out.println("Customer " + i + " hestype: 3");
 				customers.add(new Customer(3));
 			}
 		}
@@ -161,7 +165,7 @@ public class Engine {
 		*/
 		while(c.blockedUtilitySize<lsur.lastUtilityPoint&&c.retryCount>0){
 			double randomPoint= Math.random()*lsur.lastUtilityPoint;
-			//System.out.println("Random point is :"+randomPoint);
+			System.out.println("Random point is :"+randomPoint);
 			boolean nextStep = true;
 			for(LineSegment ls : c.blockedLineSegments){
 				if(ls.isPointOnSegment(randomPoint)){
