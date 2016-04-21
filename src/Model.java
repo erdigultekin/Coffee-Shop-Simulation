@@ -19,27 +19,30 @@ public class Model {
 		return (calculateQ1(s) * (1+calculateQ2(s))*(1+calculateQ3(s)));
 	}
 
-	private static double calculateQ3(Shop s) {
+	public static double calculateQ3(Shop s) {
 		double ingredientRatio = s.recipe.sugar/sugarMax;
-		if(ingredientRatio<((double) (2/3))){
+		
+		if(ingredientRatio<((double)2/3)){
+			System.out.println("Less");
 			return (1.5)*ingredientRatio;
 		}else{
+			System.out.println("More");
 			return (1-ingredientRatio)*3;
 		}
 	}
 
-	private static double calculateQ2(Shop s) {
+	public static double calculateQ2(Shop s) {
 		double ingredientRatio = s.recipe.milk/milkMax;
-		if(ingredientRatio<((double) (2/3))){
+		if(ingredientRatio<((double)2/3)){
 			return (1.5)*ingredientRatio;
 		}else{
 			return (1-ingredientRatio)*3;
 		}
 	}
 
-	private static double calculateQ1(Shop s) {
+	public static double calculateQ1(Shop s) {
 		double ingredientRatio = s.recipe.coffee/coffeeMax;
-		if(ingredientRatio<((double) (2/3))){
+		if(ingredientRatio<((double)2/3)){
 			return (1.5)*ingredientRatio;
 		}else{
 			return (1-ingredientRatio)*(1.5)+0.5;
