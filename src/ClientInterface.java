@@ -121,9 +121,9 @@ public class ClientInterface {
 		frame.getContentPane().add(lblMilk);
 		
 		JSlider milkPerCup = new JSlider();
-		milkPerCup.setValue(130);
 		milkPerCup.setMaximum(200);
 		milkPerCup.setBounds(100, 120, 100, 20);
+		milkPerCup.setValue(130);
 		frame.getContentPane().add(milkPerCup);
 		
 		JLabel milkSliderLabel = new JLabel("130");
