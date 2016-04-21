@@ -99,6 +99,6 @@ public class ClientThread extends Thread{
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 	}
 }

@@ -194,7 +194,7 @@ public class Engine {
 
 		shop.inventory.cups--;
 		shop.inventory.setCoffee(shop.inventory.getCoffee()-shop.recipe.coffee);
-		shop.inventory.setMilk(shop.inventory.getMilk()-shop.recipe.milk);
+		shop.inventory.setMilk((double)(shop.inventory.getMilk()-(double)shop.recipe.milk));
 		shop.inventory.setSugar(shop.inventory.getSugar()-shop.recipe.sugar);
 
 		shopMap.put(shop.name, shop);
@@ -210,15 +210,15 @@ public class Engine {
 	}
 
 	public static boolean checkCoffeeInStock(Shop shop){
-		return (shop.inventory.getCoffee()>shop.recipe.coffee);
+		return (shop.inventory.getCoffee()>=shop.recipe.coffee);
 	}
 
 	public static boolean checkMilkInStock(Shop shop){
-		return (shop.inventory.getMilk()>shop.recipe.milk);
+		return (shop.inventory.getMilk()>=shop.recipe.milk);
 	}
 
 	public static boolean checkSugarInStock(Shop shop){
-		return (shop.inventory.getSugar()>shop.recipe.sugar);
+		return (shop.inventory.getSugar()>=shop.recipe.sugar);
 	}
 
 	public static void clearPlaylist(){
