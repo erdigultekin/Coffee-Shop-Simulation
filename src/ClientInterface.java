@@ -380,7 +380,7 @@ public class ClientInterface {
 					shop = updatedShop;
 					
 					//Clean up the milk inventory
-					shop.inventory.milk = 0;
+					//shop.inventory.milk = 0;
 					
 					System.out.println("Daily sales: "+shop.dailySales);
 					
