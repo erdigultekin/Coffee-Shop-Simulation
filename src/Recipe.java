@@ -14,5 +14,12 @@ public class Recipe implements Serializable{
 		this.milk = milk;
 		this.sugar = sugar;
 		this.price = price;
+	}
+
+	public Recipe(double coffee2, double milk2, double sugar2, double price2) {
+		this.coffee = (int)coffee2;
+		this.milk = (int)milk2;
+		this.sugar = (int)sugar2;
+		this.price = price2;
 	}	
 }
