@@ -11,7 +11,6 @@ import javax.swing.JList;
 
 
 public class Engine {
-	static final int playableDays = 14;
 	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
@@ -21,7 +20,7 @@ public class Engine {
 	}
 
 	public static boolean checkDayConsistency(Shop shop){
-		if(Teacher.day!=shop.day||Teacher.day>playableDays){
+		if(Teacher.day!=shop.day){
 			return false;
 		}
 		return true;
@@ -61,7 +60,7 @@ public class Engine {
 
 	public static void sendCustomersToShops(){
 		//Set the customer population size first
-		customerPopulation = shopMap.size()*20;
+		customerPopulation = shopMap.size()*30;
 		System.out.println("Customer population : "+customerPopulation);
 		//Create the customers with types.
 		ArrayList<Customer> customers = new ArrayList<Customer>();
