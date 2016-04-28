@@ -228,25 +228,25 @@ public class ClientInterface {
 		//Prices
 		/* cup prices */
 		
-		JLabel cupPriceLabel = new JLabel(""+cupUnitPrice);
+		JLabel cupPriceLabel = new JLabel("0.125");
 		cupPriceLabel.setBounds(510, 101, 46, 14);
 		frame.getContentPane().add(cupPriceLabel);
 		
 		/* coffee prices */
 
-		JLabel coffeePriceLabel = new JLabel(""+coffeeUnitPrice);
+		JLabel coffeePriceLabel = new JLabel("22.5");
 		coffeePriceLabel.setBounds(510, 130, 46, 14);
 		frame.getContentPane().add(coffeePriceLabel);
 		
 		/* sugar prices */
 
-		JLabel sugarPriceLabel = new JLabel(""+sugarUnitPrice);
+		JLabel sugarPriceLabel = new JLabel("2.75");
 		sugarPriceLabel.setBounds(510, 160, 46, 14);
 		frame.getContentPane().add(sugarPriceLabel);
 		
 		/* milk prices */
 
-		JLabel milkPriceLabel = new JLabel(""+milkUnitPrice);
+		JLabel milkPriceLabel = new JLabel("2.75");
 		milkPriceLabel.setBounds(510, 190, 46, 14);
 		frame.getContentPane().add(milkPriceLabel);
 		
@@ -312,10 +312,10 @@ public class ClientInterface {
 			public void actionPerformed(ActionEvent e)
 			{
 				//Calculate the total value of orders
-				double cupOrderValue = ((cupOrderSlider.getValue()) * (cupUnitPrice));
-				double coffeeOrderValue = ((coffeeOrderSlider.getValue()) * (coffeeUnitPrice));
-				double milkOrderValue = ((milkOrderSlider.getValue()) * (milkUnitPrice));
-				double sugarOrderValue = ((sugarOrderSlider.getValue()) * (sugarUnitPrice));
+				double cupOrderValue = InventoryPrices.cupOrder(cupOrderSlider.getValue());
+				double coffeeOrderValue = InventoryPrices.coffeeOrder(coffeeOrderSlider.getValue());
+				double milkOrderValue = InventoryPrices.milkOrder(milkOrderSlider.getValue());
+				double sugarOrderValue = InventoryPrices.sugarOrder(sugarOrderSlider.getValue());
 				
 				double totalOrderValue = cupOrderValue + coffeeOrderValue + milkOrderValue + sugarOrderValue;
 				//Check if there is enough balance for orders
@@ -443,6 +443,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				coffeeOrderLabel.setText(""+coffeeOrderSlider.getValue());
+				coffeePriceLabel.setText(""+InventoryPrices.coffeeUnit(coffeeOrderSlider.getValue()));
 			}
 		});
 
@@ -451,6 +452,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				milkOrderLabel.setText(""+milkOrderSlider.getValue());
+				milkPriceLabel.setText(""+InventoryPrices.milkUnit(milkOrderSlider.getValue()));
 			}
 		});
 
@@ -459,6 +461,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				sugarOrderLabel.setText(""+sugarOrderSlider.getValue());
+				sugarPriceLabel.setText(""+InventoryPrices.sugarUnit(sugarOrderSlider.getValue()));
 			}
 		});
 
@@ -467,6 +470,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				cupOrderLabel.setText(""+cupOrderSlider.getValue());
+				cupPriceLabel.setText(""+InventoryPrices.cupUnit(cupOrderSlider.getValue()));
 			}
 		});
 		
