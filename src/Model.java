@@ -7,7 +7,7 @@ public class Model {
 	 */
 	static double coffeeMax = 15.0;
 	static double milkMax = 200.0;
-	static double sugarMax = 10.0;
+	static double sugarMax = 20.0;
 	
 	/*
 	 * Quality calculation represented here with 4 parts:
