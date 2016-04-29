@@ -12,6 +12,7 @@ import javax.swing.JList;
 
 public class Engine {
 	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
+	static volatile HashMap<String,Shop> shopMapBefore = new HashMap<String,Shop>();
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
 
@@ -59,6 +60,7 @@ public class Engine {
 	}
 
 	public static void sendCustomersToShops(){
+		shopMapBefore = shopMap;
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*30;
 		System.out.println("Customer population : "+customerPopulation);
@@ -80,12 +82,10 @@ public class Engine {
 		}
 
 		//Create the Line Segment Representations
-		ArrayList<Shop> shops = new ArrayList<Shop>();
 		LineSegmentUtilityRepresentation lsur1 = new LineSegmentUtilityRepresentation();
 		LineSegmentUtilityRepresentation lsur2 = new LineSegmentUtilityRepresentation();
 		LineSegmentUtilityRepresentation lsur3 = new LineSegmentUtilityRepresentation();
 		for(Shop shop : shopMap.values()){
-			shops.add(shop);
 			lsur1.addUtilitySegment(shop.name, Model.calculateU1(shop));
 			lsur2.addUtilitySegment(shop.name, Model.calculateU2(shop));
 			lsur3.addUtilitySegment(shop.name, Model.calculateU3(shop));
@@ -148,9 +148,7 @@ public class Engine {
 		}
 		 */
 		//Then update the hashmap with new shops;
-		for(Shop shop: shops){
-			shopMap.put(shop.name, shop);
-		}
+		XLSXReaderWriter.printTestResults("TestResult-Day"+Teacher.day+".xlsx");
 	}
 
 	public static void sendOneCustomerToAShop(Customer c, LineSegmentUtilityRepresentation lsur){
