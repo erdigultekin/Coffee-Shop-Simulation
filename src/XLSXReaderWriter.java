@@ -11,11 +11,20 @@ import java.util.Set;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell; 
-import org.apache.poi.ss.usermodel.Row; 
-import org.apache.poi.xssf.usermodel.XSSFSheet; 
-import org.apache.poi.xssf.usermodel.XSSFWorkbook; 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.AreaReference;
+import org.apache.poi.ss.util.CellReference;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFTable;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTable;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumn;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableColumns;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTTableStyleInfo; 
 
-/** * Sample Java program to read and write Excel file in Java using Apache POI * */ 
 public class XLSXReaderWriter {
 	File excel;
 	FileInputStream fis;
@@ -54,7 +63,8 @@ public class XLSXReaderWriter {
 						}else if(cell.getStringCellValue().equals("Shop Name")){
 							declareShops();
 							Engine.sendCustomersToShops();
-							printTestResults();
+							printTestResults("TestResult.xlsx");
+							return;
 						}
 						break; 
 					case Cell.CELL_TYPE_NUMERIC: 
@@ -83,23 +93,30 @@ public class XLSXReaderWriter {
 
 	private void declareShops() {
 		try {
-			Row row = itr.next();
-			cellIterator = row.cellIterator();
-			Shop shop = new Shop(cellIterator.next().getStringCellValue());
-			shop.balance = cellIterator.next().getNumericCellValue();
-			double cups = cellIterator.next().getNumericCellValue();
-			double coffee = cellIterator.next().getNumericCellValue();
-			double milk = cellIterator.next().getNumericCellValue();
-			double sugar = cellIterator.next().getNumericCellValue();
-			shop.inventory = new Inventory((int)cups,(int) coffee,(int) milk,(int) sugar);
-			double price = cellIterator.next().getNumericCellValue();
-			coffee = cellIterator.next().getNumericCellValue();
-			milk = cellIterator.next().getNumericCellValue();
-			sugar = cellIterator.next().getNumericCellValue();
-			shop.recipe = new Recipe(coffee, milk, sugar, price);
-			shop.dailySales=0;
-			Engine.shopMap.put(shop.name, shop);
-			excelShopRowMap.put(shop.name, row.getRowNum());
+			while(itr.hasNext()){
+				Row row = itr.next();
+				cellIterator = row.cellIterator();
+				String shopName = cellIterator.next().getStringCellValue();
+				if(shopName.equals("")){
+					break;
+				}
+				Shop shop = new Shop(shopName);
+				shop.balance = cellIterator.next().getNumericCellValue();
+				double cups = cellIterator.next().getNumericCellValue();
+				double coffee = cellIterator.next().getNumericCellValue();
+				double milk = cellIterator.next().getNumericCellValue();
+				double sugar = cellIterator.next().getNumericCellValue();
+				shop.inventory = new Inventory((int)cups,(int) coffee,(int) milk,(int) sugar);
+				double price = cellIterator.next().getNumericCellValue();
+				coffee = cellIterator.next().getNumericCellValue();
+				milk = cellIterator.next().getNumericCellValue();
+				sugar = cellIterator.next().getNumericCellValue();
+				shop.recipe = new Recipe(coffee, milk, sugar, price);
+				shop.dailySales=0;
+				Engine.shopMap.put(shop.name, shop);
+				excelShopRowMap.put(shop.name, row.getRowNum());
+			}
+			
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -151,12 +168,19 @@ public class XLSXReaderWriter {
 		Model.probabilityThree = 1.0 - Model.probabilityOne - Model.probabilityTwo;
 	}
 
-
-	private void printTestResults(){
+	public static void printTestResults(String filename){
 		try {
+
+			Workbook wb = new XSSFWorkbook();
+			XSSFSheet sheet = (XSSFSheet) wb.createSheet();
+
 			Map<String,Object[]> data = new HashMap<String,Object[]>();
 
 			int i = 2;
+			data.put("1", new Object[] {"Shop Name","Balance","Inventory-cups"
+					,"Inventory-coffee(kg)","Inventory-milk(lt)","Inventory-sugar(kg)"
+					,"Price","Recipe-coffe(gr)","Recipe-milk(ml)","Recipe-sugar(gr)"
+					,"Q1","Q2","Q3","QTotal","Utility1","Utility2","Utility3","Daily Sales"});
 			for(Shop s : Engine.shopMap.values()){
 				data.put(""+i, new Object[] {s.name,s.balance,s.inventory.cups,s.inventory.coffee
 						,s.inventory.milk,s.inventory.sugar,s.recipe.price,s.recipe.coffee
@@ -165,10 +189,7 @@ public class XLSXReaderWriter {
 						,Model.calculateU2(s),Model.calculateU3(s),s.dailySales});
 				i++;
 			}
-			fos = new FileOutputStream(excel);
 
-			sheet = book.getSheetAt(1);
-			itr = sheet.iterator();
 			int rownum = 1;
 
 			Set<String> newRows = data.keySet(); 
@@ -193,14 +214,11 @@ public class XLSXReaderWriter {
 					}
 				} 
 			}
-			// open an OutputStream to save written data into Excel file 
-			FileOutputStream os = new FileOutputStream(excel); 
-			book.write(os); 
-			System.out.println("Writing on Excel file Finished ..."); 
-			// Close workbook, OutputStream and Excel file to prevent leak 
-			os.close();
-			book.close();
-			fis.close();
+
+			FileOutputStream fileOut = new FileOutputStream(filename);
+			wb.write(fileOut);
+			fileOut.close();
+			wb.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -218,7 +236,7 @@ public class XLSXReaderWriter {
 			sheet = book.getSheetAt(0);
 
 			Map<String, Object[]> newData = new HashMap<String, Object[]>(); 
-			newData.put("7", new Object[] { 7d, "Sonya", "75K", "SALES", "Rupert" }); 
+			newData.put("7", new Object[] { 7d, "Sonya", "75K", "SALES", "Rupert"}); 
 			newData.put("8", new Object[] { 8d, "Kris", "85K", "SALES", "Rupert" }); 
 			newData.put("9", new Object[] { 9d, "Dave", "90K", "SALES", "Rupert" }); 
 			Set<String> newRows = newData.keySet(); 
@@ -259,70 +277,5 @@ public class XLSXReaderWriter {
 	}
 	public static void main(String[] args) throws InterruptedException {
 		XLSXReaderWriter exceller = new XLSXReaderWriter("EngineTest.xlsx");
-
 	}
-	//		try { 
-	//			File excel = new File("Employee.xlsx"); 
-	//			FileInputStream fis = new FileInputStream(excel); 
-	//			XSSFWorkbook book = new XSSFWorkbook(fis); 
-	//			XSSFSheet sheet = book.getSheetAt(0); 
-	//			Iterator<Row> itr = sheet.iterator(); 
-	//			// Iterating over Excel file in Java 
-	//			while (itr.hasNext()) { 
-	//				Row row = itr.next(); 
-	//				// Iterating over each column of Excel file 
-	//				Iterator<Cell> cellIterator = row.cellIterator(); 
-	//				while (cellIterator.hasNext()) { 
-	//					Cell cell = cellIterator.next();
-	//					switch (cell.getCellType()) { 
-	//					case Cell.CELL_TYPE_STRING: 
-	//						System.out.print(cell.getStringCellValue() + "\t"); 
-	//						break; 
-	//					case Cell.CELL_TYPE_NUMERIC: 
-	//						System.out.print(cell.getNumericCellValue() + "\t"); 
-	//						break; 
-	//					case Cell.CELL_TYPE_BOOLEAN: 
-	//						System.out.print(cell.getBooleanCellValue() + "\t"); 
-	//						break; 
-	//					default: 
-	//					} 
-	//				} 
-	//				System.out.println(""); 
-	//			} 
-	//			// writing data into XLSX file 
-	//			Map<String, Object[]> newData = new HashMap<String, Object[]>(); 
-	//			newData.put("7", new Object[] { 7d, "Sonya", "75K", "SALES", "Rupert" }); 
-	//			newData.put("8", new Object[] { 8d, "Kris", "85K", "SALES", "Rupert" }); 
-	//			newData.put("9", new Object[] { 9d, "Dave", "90K", "SALES", "Rupert" }); 
-	//			Set<String> newRows = newData.keySet(); 
-	//			int rownum = sheet.getLastRowNum(); 
-	//			for (String key : newRows) { 
-	//				Row row = sheet.createRow(rownum++); 
-	//				Object[] objArr = newData.get(key); 
-	//				int cellnum = 0; 
-	//				for (Object obj : objArr) { 
-	//					Cell cell = row.createCell(cellnum++); 
-	//					if (obj instanceof String) { 
-	//						cell.setCellValue((String) obj); } 
-	//					else if (obj instanceof Boolean) { 
-	//						cell.setCellValue((Boolean) obj); } 
-	//					else if (obj instanceof Date) { 
-	//						cell.setCellValue((Date) obj); } 
-	//					else if (obj instanceof Double) { 
-	//						cell.setCellValue((Double) obj); } 
-	//				} 
-	//			} 
-	//			// open an OutputStream to save written data into Excel file 
-	//			FileOutputStream os = new FileOutputStream(excel); 
-	//			book.write(os); System.out.println("Writing on Excel file Finished ..."); 
-	//			// Close workbook, OutputStream and Excel file to prevent leak 
-	//			os.close(); 
-	//			book.close(); 
-	//			fis.close(); 
-	//		} 
-	//		catch (FileNotFoundException fe) { 
-	//			fe.printStackTrace(); } 
-	//		catch (IOException ie) { 
-	//			ie.printStackTrace(); } 
-	//	} 
 }	
