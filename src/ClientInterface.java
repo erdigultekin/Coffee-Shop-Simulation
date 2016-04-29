@@ -11,12 +11,14 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JButton;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class ClientInterface {
 
 	public static JFrame frame;
-	public static String userName = "";
-	public static String IPAddress = "";
+	public static String userName = null;
+	public static String IPAddress = null;
 	public String status ="Please submit your recipe.";
 	public double coffeeUnitPrice = 21.0;
 	public double milkUnitPrice = 2.7;
@@ -36,9 +38,9 @@ public class ClientInterface {
 		
 		//Heading label
 		
-		JLabel lblCoffeeShopSimulation = new JLabel("Coffee Shop Simulation");
+		JLabel lblCoffeeShopSimulation = new JLabel("Coffee Shop");
 		lblCoffeeShopSimulation.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblCoffeeShopSimulation.setBounds(151, 10, 217, 28);
+		lblCoffeeShopSimulation.setBounds(239, 11, 217, 28);
 		frame.getContentPane().add(lblCoffeeShopSimulation);
 		
 		//Game status information labels
@@ -138,7 +140,7 @@ public class ClientInterface {
 		frame.getContentPane().add(lblSugar);
 		
 		JSlider sugarPerCup = new JSlider();
-		sugarPerCup.setMaximum(10);
+		sugarPerCup.setMaximum(20);
 		sugarPerCup.setValue(6);
 		sugarPerCup.setBounds(100, 150, 100, 20);
 		frame.getContentPane().add(sugarPerCup);
@@ -180,9 +182,9 @@ public class ClientInterface {
 		lblOrderAmount.setBounds(390, 84, 80, 14);
 		frame.getContentPane().add(lblOrderAmount);
 		
-		JLabel lblPrice = new JLabel("Price ($)");
+		JLabel lblPrice = new JLabel("Price");
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPrice.setBounds(490, 84, 64, 14);
+		lblPrice.setBounds(510, 84, 34, 14);
 		frame.getContentPane().add(lblPrice);
 		
 		/* cup inventory */
@@ -228,25 +230,25 @@ public class ClientInterface {
 		//Prices
 		/* cup prices */
 		
-		JLabel cupPriceLabel = new JLabel(""+cupUnitPrice);
+		JLabel cupPriceLabel = new JLabel("$0.125");
 		cupPriceLabel.setBounds(510, 101, 46, 14);
 		frame.getContentPane().add(cupPriceLabel);
 		
 		/* coffee prices */
 
-		JLabel coffeePriceLabel = new JLabel(""+coffeeUnitPrice);
+		JLabel coffeePriceLabel = new JLabel("$22.5");
 		coffeePriceLabel.setBounds(510, 130, 46, 14);
 		frame.getContentPane().add(coffeePriceLabel);
 		
 		/* sugar prices */
 
-		JLabel sugarPriceLabel = new JLabel(""+sugarUnitPrice);
+		JLabel sugarPriceLabel = new JLabel("$2.75");
 		sugarPriceLabel.setBounds(510, 160, 46, 14);
 		frame.getContentPane().add(sugarPriceLabel);
 		
 		/* milk prices */
 
-		JLabel milkPriceLabel = new JLabel(""+milkUnitPrice);
+		JLabel milkPriceLabel = new JLabel("$2.75");
 		milkPriceLabel.setBounds(510, 190, 46, 14);
 		frame.getContentPane().add(milkPriceLabel);
 		
@@ -271,7 +273,7 @@ public class ClientInterface {
 		frame.getContentPane().add(coffeeOrderLabel);
 		
 		JSlider coffeeOrderSlider = new JSlider();
-		coffeeOrderSlider.setMaximum(10);
+		coffeeOrderSlider.setMaximum(5);
 		coffeeOrderSlider.setValue(0);
 		coffeeOrderSlider.setBounds(380, 130, 100, 20);
 		frame.getContentPane().add(coffeeOrderSlider);
@@ -283,7 +285,7 @@ public class ClientInterface {
 		frame.getContentPane().add(sugarOrderLabel);
 
 		JSlider sugarOrderSlider = new JSlider();
-		sugarOrderSlider.setMaximum(10);
+		sugarOrderSlider.setMaximum(5);
 		sugarOrderSlider.setValue(0);
 		sugarOrderSlider.setBounds(380, 160, 100, 20);
 		frame.getContentPane().add(sugarOrderSlider);
@@ -306,16 +308,21 @@ public class ClientInterface {
 		buyButton.setBounds(350, 215, 90, 20);
 		frame.getContentPane().add(buyButton);
 		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBounds(235, 60, 10, 186);
+		frame.getContentPane().add(separator);
+		
 		/* buy button action listener */
 		buyButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				//Calculate the total value of orders
-				double cupOrderValue = ((cupOrderSlider.getValue()) * (cupUnitPrice));
-				double coffeeOrderValue = ((coffeeOrderSlider.getValue()) * (coffeeUnitPrice));
-				double milkOrderValue = ((milkOrderSlider.getValue()) * (milkUnitPrice));
-				double sugarOrderValue = ((sugarOrderSlider.getValue()) * (sugarUnitPrice));
+				double cupOrderValue = InventoryPrices.cupOrder(cupOrderSlider.getValue());
+				double coffeeOrderValue = InventoryPrices.coffeeOrder(coffeeOrderSlider.getValue());
+				double milkOrderValue = InventoryPrices.milkOrder(milkOrderSlider.getValue());
+				double sugarOrderValue = InventoryPrices.sugarOrder(sugarOrderSlider.getValue());
 				
 				double totalOrderValue = cupOrderValue + coffeeOrderValue + milkOrderValue + sugarOrderValue;
 				//Check if there is enough balance for orders
@@ -363,50 +370,59 @@ public class ClientInterface {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				//Disable submit and buy buttons during the submit actions
-				submitButton.setEnabled(false);
-				buyButton.setEnabled(false);
-				
-				//Get recipe values
-				Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(), Double.parseDouble(priceField.getText()));
-				//Update the shop's recipe
-				shop.recipe = recipe;
-
-				try {
-					//Send and receive the shop object
-					updatedShop = Client.connect(shop);
-					
-					//Update shop data with coming shop object's data
-					shop = updatedShop;
-					
-					//Clean up the milk inventory
-					//shop.inventory.milk = 0;
-					
-					System.out.println("Daily sales: "+shop.dailySales);
-					
-					//Update the GUI with new data
-					cupStockLabel.setText(""+shop.inventory.cups);
-					coffeeStockLabel.setText(""+shop.inventory.coffee);
-					milkStockLabel.setText(""+shop.inventory.milk);
-					sugarStockLabel.setText(""+shop.inventory.sugar);
-					currentBalanceLabel.setText(""+shop.balance);
-					previousDaySales.setText(""+ shop.dailySales);
-					currentDayLabel.setText(""+shop.day);
-					
-					//Enable submit and buy buttons
-
-					submitButton.setEnabled(true);
-					buyButton.setEnabled(true);
-					
-					//Update game status
-
-					status = "Please set your recipe and inventory for the next day.";
+				if(priceField.getText().equals("")){
+					status = "Please set the coffee price for the next day!";
 					dataStatusLabel.setText(status);
+				}else{
+					
+					
+					//Disable submit and buy buttons during the submit actions
+					submitButton.setEnabled(false);
+					buyButton.setEnabled(false);
+					
+					//Get recipe values
+					Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(), Double.parseDouble(priceField.getText()));
+					//Update the shop's recipe
+					shop.recipe = recipe;
 
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					try {
+						//Send and receive the shop object
+						updatedShop = Client.connect(shop);
+						
+						//Update shop data with coming shop object's data
+						shop = updatedShop;
+						
+						//Clean up the milk inventory
+						//shop.inventory.milk = 0;
+						
+						System.out.println("Daily sales: "+shop.dailySales);
+						
+						//Update the GUI with new data
+						cupStockLabel.setText(""+shop.inventory.cups);
+						coffeeStockLabel.setText(""+shop.inventory.coffee);
+						milkStockLabel.setText(""+shop.inventory.milk);
+						sugarStockLabel.setText(""+shop.inventory.sugar);
+						currentBalanceLabel.setText(""+shop.balance);
+						previousDaySales.setText(""+ shop.dailySales);
+						currentDayLabel.setText(""+shop.day);
+						
+						//Enable submit and buy buttons
+
+						submitButton.setEnabled(true);
+						buyButton.setEnabled(true);
+						
+						//Update game status
+
+						status = "Please set your recipe and inventory for the next day.";
+						dataStatusLabel.setText(status);
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
 				}
+				
 
 			}
 		});
@@ -443,6 +459,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				coffeeOrderLabel.setText(""+coffeeOrderSlider.getValue());
+				coffeePriceLabel.setText("$"+InventoryPrices.coffeeUnit(coffeeOrderSlider.getValue()));
 			}
 		});
 
@@ -451,6 +468,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				milkOrderLabel.setText(""+milkOrderSlider.getValue());
+				milkPriceLabel.setText("$"+InventoryPrices.milkUnit(milkOrderSlider.getValue()));
 			}
 		});
 
@@ -459,6 +477,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				sugarOrderLabel.setText(""+sugarOrderSlider.getValue());
+				sugarPriceLabel.setText("$"+InventoryPrices.sugarUnit(sugarOrderSlider.getValue()));
 			}
 		});
 
@@ -467,6 +486,7 @@ public class ClientInterface {
 			public void stateChanged(ChangeEvent e)
 			{
 				cupOrderLabel.setText(""+cupOrderSlider.getValue());
+				cupPriceLabel.setText("$"+InventoryPrices.cupUnit(cupOrderSlider.getValue()));
 			}
 		});
 		
@@ -479,11 +499,15 @@ public class ClientInterface {
 		//Initialize the interface
 		ClientInterface cl = new ClientInterface();
 		
-		//Get server IP address from the user
-		IPAddress = JOptionPane.showInputDialog(frame, "Please enter the IP address of server:", null);
+		while(IPAddress == null || IPAddress.equals("")){
+			//Get server IP address from the user
+			IPAddress = JOptionPane.showInputDialog(frame, "Please enter the IP address of server:", null);
+		}
 		
-		//Get user name from the user
-		userName = JOptionPane.showInputDialog(frame, "What is your name?", null);
+		while(userName == null || userName.equals("")){
+			//Get user name from the user
+			userName = JOptionPane.showInputDialog(frame, "What is your name?", null);
+		}
 		
 		//Initialize shop object
 		shop= new Shop(userName);
