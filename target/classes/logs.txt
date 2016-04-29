@@ -1,2 +1,0 @@
-listening on port: 4444
-Customer population : 0
