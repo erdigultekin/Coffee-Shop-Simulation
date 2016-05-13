@@ -13,6 +13,13 @@ import javax.swing.JList;
 public class Engine {
 	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
 	static volatile HashMap<String,Shop> shopMapBefore = new HashMap<String,Shop>();
+	static volatile HashMap<String,ArrayList<Integer>> shopSales = new HashMap<String,ArrayList<Integer>>();
+	static volatile HashMap<String,ArrayList<Double>> shopBalances = new HashMap<String,ArrayList<Double>>();
+	static volatile HashMap<String,ArrayList<Double>> shopU1s = new HashMap<String,ArrayList<Double>>();
+	static volatile HashMap<String,ArrayList<Double>> shopU2s = new HashMap<String,ArrayList<Double>>();
+	static volatile HashMap<String,ArrayList<Double>> shopU3s = new HashMap<String,ArrayList<Double>>();
+	static volatile HashMap<String,ArrayList<Double>> shopPrices = new HashMap<String,ArrayList<Double>>();
+	
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
 
@@ -60,6 +67,29 @@ public class Engine {
 	}
 
 	public static void sendCustomersToShops(){
+		if(Teacher.day==1){
+			for(Shop shop : shopMap.values()){
+				ArrayList<Integer> sales = new ArrayList<Integer>();
+				sales.add(shop.dailySales);
+				ArrayList<Double> balances = new ArrayList<Double>();
+				balances.add(shop.balance);
+				ArrayList<Double> prices = new ArrayList<Double>();
+				prices.add(0.0);
+				ArrayList<Double> u1s = new ArrayList<Double>();
+				u1s.add(0.0);
+				ArrayList<Double> u2s = new ArrayList<Double>();
+				u2s.add(0.0);
+				ArrayList<Double> u3s = new ArrayList<Double>();
+				u3s.add(0.0);
+				
+				shopSales.put(shop.name, sales);
+				shopBalances.put(shop.name, balances);
+				shopPrices.put(shop.name, prices);
+				shopU1s.put(shop.name, u1s);
+				shopU2s.put(shop.name, u2s);
+				shopU3s.put(shop.name, u3s);
+			}
+		}
 		shopMapBefore = shopMap;
 		//Set the customer population size first
 		customerPopulation = shopMap.size()*30;
@@ -100,54 +130,28 @@ public class Engine {
 				sendOneCustomerToAShop(c,lsur3);
 			}
 		}
-		/*
-		//Then create a sorted ArrayList for iterating through shops with price in ascending order.
-		ArrayList<Shop> shops = new ArrayList<Shop>();
-		for(int i=1;i<=15;i++){
-			for(Shop shop: shopMap.values()){
-				if(shop.recipe.price==i){
-					shop.dailySales = 0;
-					shops.add(shop);
-					System.out.println(shop.name+"'s shop added to shops.");
-				}
-			}
+		
+		for(Shop shop: shopMap.values()){
+			ArrayList<Integer> sales = shopSales.get(shop.name);
+			sales.add(shop.dailySales);
+			ArrayList<Double> balances = shopBalances.get(shop.name);
+			balances.add(shop.balance);
+			ArrayList<Double> prices = shopPrices.get(shop.name);
+			prices.add(0.0);
+			ArrayList<Double> u1s = shopU1s.get(shop.name);
+			u1s.add(0.0);
+			ArrayList<Double> u2s = shopU2s.get(shop.name);
+			u2s.add(0.0);
+			ArrayList<Double> u3s = shopU3s.get(shop.name);
+			u3s.add(0.0);
+			
+			shopSales.put(shop.name, sales);
+			shopBalances.put(shop.name, balances);
+			shopPrices.put(shop.name, prices);
+			shopU1s.put(shop.name, u1s);
+			shopU2s.put(shop.name, u2s);
+			shopU3s.put(shop.name, u3s);
 		}
-
-		//Then send one customer to each shop if it has enough resources
-		int index = 0;
-		for(Shop shop:shops){
-			if(checkAvailabilityForOneSale(shop)){
-				shops.set(index,makeOneSale(shop));
-				customerPopulation--;
-			}
-		}
-
-		//Then send the rest of customers to shops according to price.
-		int indexCovered = 0;
-		index = 0;
-		while(customerPopulation>0&&index<shops.size()){
-			Shop shop = shops.get(index);
-			if(checkAvailabilityForOneSale(shop)){
-				if(isCustomerWillingToBuy()){
-					shops.set(index,makeOneSale(shop));
-					customerPopulation--;
-					index = indexCovered;
-				}else{
-					if(index<(shops.size()-1)){
-						index++;
-					}else{
-						index = indexCovered;
-						customerPopulation--;
-					}
-				}
-
-			}else{
-				index++;
-				indexCovered = index;
-			}
-		}
-		 */
-		//Then update the hashmap with new shops;
 		XLSXReaderWriter.printTestResults("TestResult-Day"+Teacher.day+".xlsx");
 	}
 
