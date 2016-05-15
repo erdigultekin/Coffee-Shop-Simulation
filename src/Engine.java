@@ -1,5 +1,8 @@
 
 
+import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.*;
@@ -7,19 +10,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import javax.swing.JFrame;
 import javax.swing.JList;
+
+import ChartDirector.ChartViewer;
 
 
 public class Engine {
 	static volatile HashMap<String,Shop> shopMap = new HashMap<String,Shop>();
 	static volatile HashMap<String,Shop> shopMapBefore = new HashMap<String,Shop>();
-	static volatile HashMap<String,ArrayList<Integer>> shopSales = new HashMap<String,ArrayList<Integer>>();
+	static volatile HashMap<String,ArrayList<Double>> shopSales = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopBalances = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopU1s = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopU2s = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopU3s = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopPrices = new HashMap<String,ArrayList<Double>>();
-	
+
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
 
@@ -69,8 +75,8 @@ public class Engine {
 	public static void sendCustomersToShops(){
 		if(Teacher.day==1){
 			for(Shop shop : shopMap.values()){
-				ArrayList<Integer> sales = new ArrayList<Integer>();
-				sales.add(shop.dailySales);
+				ArrayList<Double> sales = new ArrayList<Double>();
+				sales.add((double)shop.dailySales);
 				ArrayList<Double> balances = new ArrayList<Double>();
 				balances.add(shop.balance);
 				ArrayList<Double> prices = new ArrayList<Double>();
@@ -81,7 +87,7 @@ public class Engine {
 				u2s.add(0.0);
 				ArrayList<Double> u3s = new ArrayList<Double>();
 				u3s.add(0.0);
-				
+
 				shopSales.put(shop.name, sales);
 				shopBalances.put(shop.name, balances);
 				shopPrices.put(shop.name, prices);
@@ -98,7 +104,7 @@ public class Engine {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 		for(int i=0;i<customerPopulation;i++){
 			double r = Math.random();
-			
+
 			if(0<=r&&r<Model.probabilityOne){
 				System.out.println("Customer " + i + " hestype: 1");
 				customers.add(new Customer(1));
@@ -130,21 +136,21 @@ public class Engine {
 				sendOneCustomerToAShop(c,lsur3);
 			}
 		}
-		
+
 		for(Shop shop: shopMap.values()){
-			ArrayList<Integer> sales = shopSales.get(shop.name);
-			sales.add(shop.dailySales);
+			ArrayList<Double> sales = shopSales.get(shop.name);
+			sales.add((double)shop.dailySales);
 			ArrayList<Double> balances = shopBalances.get(shop.name);
 			balances.add(shop.balance);
 			ArrayList<Double> prices = shopPrices.get(shop.name);
-			prices.add(0.0);
+			prices.add(shop.recipe.price);
 			ArrayList<Double> u1s = shopU1s.get(shop.name);
-			u1s.add(0.0);
+			u1s.add(Model.calculateU1(shop));
 			ArrayList<Double> u2s = shopU2s.get(shop.name);
-			u2s.add(0.0);
+			u2s.add(Model.calculateU2(shop));
 			ArrayList<Double> u3s = shopU3s.get(shop.name);
-			u3s.add(0.0);
-			
+			u3s.add(Model.calculateU3(shop));
+
 			shopSales.put(shop.name, sales);
 			shopBalances.put(shop.name, balances);
 			shopPrices.put(shop.name, prices);
@@ -152,7 +158,39 @@ public class Engine {
 			shopU2s.put(shop.name, u2s);
 			shopU3s.put(shop.name, u3s);
 		}
+		System.out.println("Printing Test results now...");
+		//Method for writing test results to excel
 		XLSXReaderWriter.printTestResults("TestResult-Day"+Teacher.day+".xlsx");
+		System.out.println("Printed Test results. Drawing Charts now...");
+		//Method for creating charts
+		drawCharts();
+		System.out.println("Drawed Charts now...");
+
+	}
+
+	public static void drawCharts(){
+		for(int i=0;i<6;i++){
+			//Instantiate an instance of this demo module
+			MultilineChartDrawer charter = new MultilineChartDrawer(i);
+			System.out.println("Charter initialized..");
+			//Create and set up the main window
+			JFrame frame = new JFrame(charter.toString());
+			frame.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {System.exit(0);} });
+			frame.getContentPane().setBackground(Color.white);
+			System.out.println("Frame created.");
+			// Create the chart and put them in the content pane
+			ChartViewer viewer = new ChartViewer();
+			System.out.println("Viewer created.");
+			charter.createChart(viewer);
+			System.out.println("Chart Created.");
+			frame.getContentPane().add(viewer);
+
+			// Display the window
+			frame.pack();
+			frame.setVisible(true);
+			System.out.println("Frame is visible now");
+		}
 	}
 
 	public static void sendOneCustomerToAShop(Customer c, LineSegmentUtilityRepresentation lsur){
@@ -163,7 +201,7 @@ public class Engine {
 		for(LineSegment ls : lsur.shopSegmentMap.keySet()){
 			System.out.println("Line Segment start: "+ls.start+" end: "+ls.end+" stands for shop: "+lsur.shopSegmentMap.get(ls));
 		}
-		*/
+		 */
 		while(c.blockedUtilitySize<lsur.lastUtilityPoint&&c.retryCount>0){
 			double randomPoint= Math.random()*lsur.lastUtilityPoint;
 			System.out.println("Random point is :"+randomPoint);
