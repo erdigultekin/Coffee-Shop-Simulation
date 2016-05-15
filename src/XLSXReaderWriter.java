@@ -34,6 +34,7 @@ public class XLSXReaderWriter {
 	Iterator<Row> itr;
 	Iterator<Cell> cellIterator;
 	HashMap<String,Integer> excelShopRowMap;
+	public static int runCount = 1;
 
 	public XLSXReaderWriter(String filename) throws InterruptedException{
 		excelShopRowMap = new HashMap<String,Integer>();
@@ -62,8 +63,15 @@ public class XLSXReaderWriter {
 							declareMaxValues();
 						}else if(cell.getStringCellValue().equals("Shop Name")){
 							declareShops();
-							Engine.sendCustomersToShops();
-							printTestResults("TestResult.xlsx");
+							for(int i=0;i<runCount;i++){
+								if(Teacher.day==0){
+									Teacher.day=1;
+								}else{
+									Teacher.day++;
+								}
+								Engine.sendCustomersToShops();
+								printTestResults("TestResults"+i+".xlsx");
+							}
 							return;
 						}
 						break; 
@@ -92,6 +100,7 @@ public class XLSXReaderWriter {
 	}
 
 	private void declareShops() {
+		
 		try {
 			while(itr.hasNext()){
 				Row row = itr.next();
@@ -194,7 +203,8 @@ public class XLSXReaderWriter {
 
 			Set<String> newRows = data.keySet(); 
 
-			for (String key : newRows) { 
+			while (rownum < data.size()+1) {
+				String key = ""+rownum;
 				Row row = sheet.createRow(rownum++); 
 				Object[] objArr = data.get(key); 
 				int cellnum = 0; 
@@ -225,56 +235,6 @@ public class XLSXReaderWriter {
 		}
 	}
 
-	public void shopWriter(){
-		try {
-			book.close();
-			fis.close();
-			// writing data into XLSX file 
-			File outputFile = new File("output.xlsx");
-			FileOutputStream os = new FileOutputStream(outputFile);
-			book = new XSSFWorkbook(outputFile);
-			sheet = book.getSheetAt(0);
-
-			Map<String, Object[]> newData = new HashMap<String, Object[]>(); 
-			newData.put("7", new Object[] { 7d, "Sonya", "75K", "SALES", "Rupert"}); 
-			newData.put("8", new Object[] { 8d, "Kris", "85K", "SALES", "Rupert" }); 
-			newData.put("9", new Object[] { 9d, "Dave", "90K", "SALES", "Rupert" }); 
-			Set<String> newRows = newData.keySet(); 
-			int rownum = sheet.getLastRowNum()+1; 
-			for (String key : newRows) { 
-				Row row = sheet.createRow(rownum++); 
-				Object[] objArr = newData.get(key); 
-				int cellnum = 0; 
-				for (Object obj : objArr) { 
-					Cell cell = row.createCell(cellnum++); 
-					if (obj instanceof String) { 
-						cell.setCellValue((String) obj); } 
-					else if (obj instanceof Boolean) { 
-						cell.setCellValue((Boolean) obj); } 
-					else if (obj instanceof Date) { 
-						cell.setCellValue((Date) obj); } 
-					else if (obj instanceof Double || obj instanceof Integer) { 
-						cell.setCellValue((Double) obj); } 
-				} 
-			} 
-			// open an OutputStream to save written data into Excel file 
-
-			book.write(os); System.out.println("Writing on Excel file Finished ..."); 
-			// Close workbook, OutputStream and Excel file to prevent leak 
-			os.close();
-			book.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvalidFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-
-	}
 	public static void main(String[] args) throws InterruptedException {
 		XLSXReaderWriter exceller = new XLSXReaderWriter("EngineTest.xlsx");
 	}
