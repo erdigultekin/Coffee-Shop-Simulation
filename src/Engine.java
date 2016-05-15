@@ -169,28 +169,28 @@ public class Engine {
 	}
 
 	public static void drawCharts(){
-		for(int i=0;i<6;i++){
+		for(int i=0;i<3;i++){
 			//Instantiate an instance of this demo module
 			MultilineChartDrawer charter = new MultilineChartDrawer(i);
 			System.out.println("Charter initialized..");
 			//Create and set up the main window
-			JFrame frame = new JFrame(charter.toString());
-			frame.addWindowListener(new WindowAdapter() {
+			JFrame frameChart = new JFrame(charter.toString());
+			frameChart.addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {System.exit(0);} });
-			frame.getContentPane().setBackground(Color.white);
+			frameChart.getContentPane().setBackground(Color.white);
 			System.out.println("Frame created.");
 			// Create the chart and put them in the content pane
 			ChartViewer viewer = new ChartViewer();
 			System.out.println("Viewer created.");
 			charter.createChart(viewer);
 			System.out.println("Chart Created.");
-			frame.getContentPane().add(viewer);
+			frameChart.getContentPane().add(viewer);
 			
-			frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+			frameChart.setDefaultCloseOperation(frameChart.EXIT_ON_CLOSE);
 
 			// Display the window
-			frame.pack();
-			frame.setVisible(true);
+			frameChart.pack();
+			frameChart.setVisible(true);
 			System.out.println("Frame is visible now");
 		}
 	}
