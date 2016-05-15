@@ -185,6 +185,8 @@ public class Engine {
 			charter.createChart(viewer);
 			System.out.println("Chart Created.");
 			frame.getContentPane().add(viewer);
+			
+			frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 
 			// Display the window
 			frame.pack();
