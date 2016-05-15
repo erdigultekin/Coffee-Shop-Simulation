@@ -17,7 +17,7 @@ public class Teacher {
 	static DefaultListModel cups;
 	public static boolean readyCheck;
 	public static int day;
-	private JFrame frame;
+	public static JFrame frame;
 	public static JTextField betaOne;
 	public static JTextField betaTwo;
 	public static JTextField betaThree;
