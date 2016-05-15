@@ -69,16 +69,16 @@ public class MultilineChartDrawer
 		System.out.println("Data sets created");
 		// Create an XYChart object of size 600 x 300 pixels, with a light blue (EEEEFF) background,
 		// black border, 1 pxiel 3D border effect and rounded corners
-		this.c = new XYChart(1600, 1200, 0xeeeeff, 0x000000, 1);
+		this.c = new XYChart(800, 600, 0xeeeeff, 0x000000, 1);
 		c.setRoundedFrame();
 
 		// Set the plotarea at (55, 58) and of size 520 x 195 pixels, with white background. Turn on
 		// both horizontal and vertical grid lines with light grey color (0xcccccc)
-		c.setPlotArea(165, 176, 1300, 800, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
+		c.setPlotArea(82, 88, 650, 400, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
 
 		// Add a legend box at (50, 30) (top of the chart) with horizontal layout. Use 9pt Arial
 		// Bold font. Set the background and border color to Transparent.
-		c.addLegend(150, 90, false, "Arial Bold", 9).setBackground(Chart.Transparent);
+		c.addLegend(75, 45, false, "Arial Bold", 9).setBackground(Chart.Transparent);
 
 		// Add a title box to the chart using 15pt Times Bold Italic font, on a light blue (CCCCFF)
 		// background with glass effect. white (0xffffff) on a dark red (0x800000) background, with
