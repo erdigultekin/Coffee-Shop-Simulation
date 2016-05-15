@@ -69,6 +69,9 @@ public class XLSXReaderWriter {
 								}else{
 									Teacher.day++;
 								}
+								for(Shop shop : Engine.shopMap.values()){
+									shop.dailySales=0;
+								}
 								Engine.sendCustomersToShops();
 								printTestResults("TestResults"+i+".xlsx");
 							}

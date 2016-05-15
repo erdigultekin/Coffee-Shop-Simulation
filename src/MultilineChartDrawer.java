@@ -12,6 +12,8 @@ public class MultilineChartDrawer
 	String title = "";
 
 	int identifier;
+	int width;
+	int height;
 
 	HashMap<String,ArrayList<Double>> dataSource;
 
@@ -28,6 +30,7 @@ public class MultilineChartDrawer
 
 
 	public MultilineChartDrawer(int chartIdentifier){
+		
 		identifier=chartIdentifier;
 		if(identifier==0) dataSource = Engine.shopBalances;
 		else if(identifier==1) dataSource = Engine.shopSales;
@@ -45,8 +48,10 @@ public class MultilineChartDrawer
 	public int getNoOfCharts() { return 1; }
 
 	//Main code for creating charts
-	public void createChart(ChartViewer viewer)
+	public void createChart(ChartViewer viewer,int width,int height)
 	{
+		this.width=width;
+		this.height=height;
 		String[] shopNames = new String[dataSource.size()];
 		// The data for the line chart
 		double[][] data = new double[dataSource.size()][Teacher.day+1];
@@ -69,17 +74,17 @@ public class MultilineChartDrawer
 		System.out.println("Data sets created");
 		// Create an XYChart object of size 600 x 300 pixels, with a light blue (EEEEFF) background,
 		// black border, 1 pxiel 3D border effect and rounded corners
-		this.c = new XYChart(800, 600, 0xeeeeff, 0x000000, 1);
+		this.c = new XYChart(width-20, height-20, 0xeeeeff, 0x000000, 1);
 		c.setRoundedFrame();
 
 		// Set the plotarea at (55, 58) and of size 520 x 195 pixels, with white background. Turn on
 		// both horizontal and vertical grid lines with light grey color (0xcccccc)
-		c.setPlotArea(82, 88, 650, 400, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
+		c.setPlotArea(80, 80, width-140, height-140, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
 
 		// Add a legend box at (50, 30) (top of the chart) with horizontal layout. Use 9pt Arial
 		// Bold font. Set the background and border color to Transparent.
-		c.addLegend(75, 45, false, "Arial Bold", 9).setBackground(Chart.Transparent);
-
+		c.addLegend(75, 30, false, "Arial Bold", 9).setBackground(Chart.Transparent);
+		
 		// Add a title box to the chart using 15pt Times Bold Italic font, on a light blue (CCCCFF)
 		// background with glass effect. white (0xffffff) on a dark red (0x800000) background, with
 		// a 1 pixel 3D border.
@@ -115,7 +120,7 @@ public class MultilineChartDrawer
 
 		//include tool tip for the chart
 		viewer.setImageMap(c.getHTMLImageMap("clickable", "",
-				"title='[{dataSetName}] Day {xLabel}: ${value} '"));
+				"title='[{dataSetName}] Day {xLabel}: {value} '"));
 
 	}
 
@@ -179,7 +184,7 @@ public class MultilineChartDrawer
 
 		// Create the chart and put them in the content pane
 		ChartViewer viewer = new ChartViewer();
-		charter.createChart(viewer);
+		charter.createChart(viewer,800,600);
 		frame.getContentPane().add(viewer);
 
 		// Display the window

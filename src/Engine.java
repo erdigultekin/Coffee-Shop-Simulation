@@ -1,8 +1,10 @@
 
 
 import java.awt.Color;
+import java.awt.event.ComponentListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.*;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JPanel;
 
 import ChartDirector.ChartViewer;
 
@@ -26,6 +29,16 @@ public class Engine {
 	static volatile HashMap<String,ArrayList<Double>> shopU3s = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopPrices = new HashMap<String,ArrayList<Double>>();
 
+	
+	static JFrame frameBalance = new JFrame("Balances Chart ");
+	static JFrame frameSales = new JFrame("Sales Chart ");
+	static JFrame framePrices = new JFrame("Prices Chart ");
+	static JFrame frameChart;
+	static MultilineChartDrawer charterBalance = new MultilineChartDrawer(0);
+	static MultilineChartDrawer charterSales = new MultilineChartDrawer(1);
+	static MultilineChartDrawer charterPrices = new MultilineChartDrawer(2);
+	static MultilineChartDrawer charter;
+	
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
 
@@ -169,29 +182,69 @@ public class Engine {
 	}
 
 	public static void drawCharts(){
+		
 		for(int i=0;i<3;i++){
 			//Instantiate an instance of this demo module
-			MultilineChartDrawer charter = new MultilineChartDrawer(i);
+			charter = new MultilineChartDrawer(i);
 			System.out.println("Charter initialized..");
 			//Create and set up the main window
-			JFrame frameChart = new JFrame(charter.toString());
+			
+			if(i==0){
+				frameChart=frameBalance;
+				charter = charterBalance;
+			}else if(i==1){
+				frameChart=frameSales;
+				charter=charterSales;
+			}else{
+				frameChart=framePrices;
+				charter=charterPrices;
+			}
+			
+			for(WindowListener wl : frameChart.getWindowListeners()){
+				frameChart.removeWindowListener(wl);
+				frameChart.remove(frameChart.getContentPane());
+				JPanel panel = new JPanel();
+				frameChart.setContentPane(panel);
+			}
+			
+			for(ComponentListener cl : frameChart.getComponentListeners()){
+				frameChart.removeComponentListener(cl);
+			}
+			
 			frameChart.addWindowListener(new WindowAdapter() {
-				public void windowClosing(WindowEvent e) {System.exit(0);} });
+				public void windowClosing(WindowEvent e) {frameChart.dispose();} });
 			frameChart.getContentPane().setBackground(Color.white);
 			System.out.println("Frame created.");
 			// Create the chart and put them in the content pane
 			ChartViewer viewer = new ChartViewer();
 			System.out.println("Viewer created.");
-			charter.createChart(viewer);
+			charter.createChart(viewer,800,600);
 			System.out.println("Chart Created.");
 			frameChart.getContentPane().add(viewer);
 			
-			frameChart.setDefaultCloseOperation(frameChart.EXIT_ON_CLOSE);
+			
+			//frameChart.setDefaultCloseOperation(frameChart.EXIT_ON_CLOSE);
 
 			// Display the window
+			
 			frameChart.pack();
 			frameChart.setVisible(true);
 			System.out.println("Frame is visible now");
+			// Resize handler
+	        frameChart.addComponentListener(new java.awt.event.ComponentAdapter() {
+	            public void componentResized(java.awt.event.ComponentEvent evt) {
+	                JFrame tmp = (JFrame)evt.getSource();
+	                if (tmp.getTitle().equals("Balances Chart ")) charter=charterBalance;
+	                else if (tmp.getTitle().equals("Sales Chart ")) charter=charterSales;
+	                else charter = charterPrices;
+	                
+	                if (tmp.getWidth() < 250 || tmp.getHeight() < 250){
+	                	charter.createChart(viewer, 250, 250);
+	                    tmp.setSize(250, 250);
+	                }else charter.createChart(viewer, tmp.getWidth(), tmp.getHeight());
+	            }
+	        });
+	        
 		}
 	}
 
