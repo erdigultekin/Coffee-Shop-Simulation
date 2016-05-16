@@ -32,7 +32,7 @@ public class ClientInterface {
 		//Frame
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 600, 426);
+		frame.setBounds(100, 100, 600, 489);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -50,11 +50,11 @@ public class ClientInterface {
 		JLabel lblDay = new JLabel("Day:");
 		lblDay.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDay.setForeground(Color.RED);
-		lblDay.setBounds(15, 290, 46, 14);
+		lblDay.setBounds(15, 360, 46, 14);
 		frame.getContentPane().add(lblDay);
 		
 		JLabel currentDayLabel = new JLabel("1");
-		currentDayLabel.setBounds(45, 290, 46, 14);
+		currentDayLabel.setBounds(45, 360, 46, 14);
 		frame.getContentPane().add(currentDayLabel);
 		
 		/* balance indicator */
@@ -62,11 +62,11 @@ public class ClientInterface {
 		JLabel lblCurrentBalance = new JLabel("Current Balance:");
 		lblCurrentBalance.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblCurrentBalance.setForeground(Color.RED);
-		lblCurrentBalance.setBounds(15, 310, 100, 14);
+		lblCurrentBalance.setBounds(15, 380, 100, 14);
 		frame.getContentPane().add(lblCurrentBalance);
 
 		JLabel currentBalanceLabel = new JLabel("100");
-		currentBalanceLabel.setBounds(115, 310, 46, 14);
+		currentBalanceLabel.setBounds(115, 380, 46, 14);
 		frame.getContentPane().add(currentBalanceLabel);
 		
 		/* daily sales indicator */
@@ -74,11 +74,11 @@ public class ClientInterface {
 		JLabel lblDailySales = new JLabel("Previous Day Sales:");
 		lblDailySales.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDailySales.setForeground(Color.RED);
-		lblDailySales.setBounds(15, 330, 118, 14);
+		lblDailySales.setBounds(15, 400, 118, 14);
 		frame.getContentPane().add(lblDailySales);
 
 		JLabel previousDaySales = new JLabel("0");
-		previousDaySales.setBounds(130, 330, 46, 14);
+		previousDaySales.setBounds(130, 400, 46, 14);
 		frame.getContentPane().add(previousDaySales);
 		
 		/* game status indicator */
@@ -86,170 +86,170 @@ public class ClientInterface {
 		JLabel lblGameStatus = new JLabel("Game Status:");
 		lblGameStatus.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblGameStatus.setForeground(Color.RED);
-		lblGameStatus.setBounds(15, 350, 116, 14);
+		lblGameStatus.setBounds(15, 425, 90, 14);
 		frame.getContentPane().add(lblGameStatus);
 
 		JLabel dataStatusLabel = new JLabel(status);
-		dataStatusLabel.setBounds(110, 350, 450, 14);
+		dataStatusLabel.setBounds(115, 425, 450, 14);
 		frame.getContentPane().add(dataStatusLabel);
 		
 		//Coffee recipe
 		
 		JLabel lblCoffeeRecipe = new JLabel("Coffee Recipe");
 		lblCoffeeRecipe.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCoffeeRecipe.setBounds(15, 60, 100, 20);
+		lblCoffeeRecipe.setBounds(15, 125, 100, 20);
 		frame.getContentPane().add(lblCoffeeRecipe);
 
 		/* coffee amount selector */
 		
 		JLabel lblCoffee = new JLabel("Coffee (g)");
-		lblCoffee.setBounds(15, 90, 80, 20);
+		lblCoffee.setBounds(15, 170, 80, 20);
 		frame.getContentPane().add(lblCoffee);
 		
 		JSlider coffeePerCup = new JSlider();
 		coffeePerCup.setValue(10);
 		coffeePerCup.setMaximum(15);
-		coffeePerCup.setBounds(100, 90, 100, 20);
+		coffeePerCup.setBounds(100, 170, 100, 20);
 		frame.getContentPane().add(coffeePerCup);
 		
 		JLabel coffeeSliderLabel = new JLabel("10");
-		coffeeSliderLabel.setBounds(205, 90, 25, 15);
+		coffeeSliderLabel.setBounds(205, 170, 25, 15);
 		frame.getContentPane().add(coffeeSliderLabel);
 
 		/* milk amount selector */
 		
 		JLabel lblMilk = new JLabel("Milk (ml)");
-		lblMilk.setBounds(15, 120, 80, 20);
+		lblMilk.setBounds(15, 200, 80, 20);
 		frame.getContentPane().add(lblMilk);
 		
 		JSlider milkPerCup = new JSlider();
 		milkPerCup.setMaximum(200);
-		milkPerCup.setBounds(100, 120, 100, 20);
+		milkPerCup.setBounds(100, 200, 100, 20);
 		milkPerCup.setValue(130);
 		frame.getContentPane().add(milkPerCup);
 		
 		JLabel milkSliderLabel = new JLabel("130");
-		milkSliderLabel.setBounds(205, 120, 25, 15);
+		milkSliderLabel.setBounds(205, 200, 25, 15);
 		frame.getContentPane().add(milkSliderLabel);
 		
 
 		/* sugar amount selector */
 		
 		JLabel lblSugar = new JLabel("Sugar (g)");
-		lblSugar.setBounds(15, 150, 80, 20);
+		lblSugar.setBounds(15, 230, 80, 20);
 		frame.getContentPane().add(lblSugar);
 		
 		JSlider sugarPerCup = new JSlider();
 		sugarPerCup.setMaximum(20);
 		sugarPerCup.setValue(6);
-		sugarPerCup.setBounds(100, 150, 100, 20);
+		sugarPerCup.setBounds(100, 230, 100, 20);
 		frame.getContentPane().add(sugarPerCup);
 		
 		JLabel sugarSliderLabel = new JLabel("6");
-		sugarSliderLabel.setBounds(205, 150, 25, 15);
+		sugarSliderLabel.setBounds(205, 230, 25, 15);
 		frame.getContentPane().add(sugarSliderLabel);
 
 		/* sales price selector */
 		
 		JLabel lblSalesPrice = new JLabel("Price ($)");
-		lblSalesPrice.setBounds(15, 180, 80, 20);
+		lblSalesPrice.setBounds(15, 260, 80, 20);
 		frame.getContentPane().add(lblSalesPrice);
 		
 		JTextField priceField = new DoubleJTextField();
-		priceField.setBounds(100, 180, 100, 20);
+		priceField.setBounds(100, 260, 100, 20);
 		frame.getContentPane().add(priceField);
 		priceField.setColumns(10);
 
 		/* recipe submit button */
 		JButton submitButton = new JButton("Submit");
-		submitButton.setBounds(100, 210, 100, 20);
+		submitButton.setBounds(100, 300, 100, 20);
 		frame.getContentPane().add(submitButton);
 		
 		//Inventory
 
 		JLabel lblInventory = new JLabel("Inventory");
 		lblInventory.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblInventory.setBounds(250, 60, 100, 20);
+		lblInventory.setBounds(250, 125, 100, 20);
 		frame.getContentPane().add(lblInventory);
 		
 		JLabel lblStocks = new JLabel("Stocks");
 		lblStocks.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblStocks.setBounds(320, 84, 46, 14);
+		lblStocks.setBounds(320, 150, 46, 14);
 		frame.getContentPane().add(lblStocks);
 		
 		JLabel lblOrderAmount = new JLabel("Order Amount");
 		lblOrderAmount.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblOrderAmount.setBounds(390, 84, 80, 14);
+		lblOrderAmount.setBounds(390, 150, 80, 14);
 		frame.getContentPane().add(lblOrderAmount);
 		
 		JLabel lblPrice = new JLabel("Price");
 		lblPrice.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPrice.setBounds(510, 84, 34, 14);
+		lblPrice.setBounds(510, 150, 34, 14);
 		frame.getContentPane().add(lblPrice);
 		
 		/* cup inventory */
 		
 		JLabel lblCupsInventory = new JLabel("Cups");
-		lblCupsInventory.setBounds(250, 100, 80, 14);
+		lblCupsInventory.setBounds(250, 260, 80, 14);
 		frame.getContentPane().add(lblCupsInventory);
 		
 		JLabel cupStockLabel = new JLabel("0");
-		cupStockLabel.setBounds(340, 100, 46, 14);
+		cupStockLabel.setBounds(340, 260, 46, 14);
 		frame.getContentPane().add(cupStockLabel);
 		
 		/* coffee inventory */
 
 		JLabel lblCoffeeInventory = new JLabel("Coffee (kg)");
-		lblCoffeeInventory.setBounds(250, 130, 80, 14);
+		lblCoffeeInventory.setBounds(250, 170, 80, 14);
 		frame.getContentPane().add(lblCoffeeInventory);
 		
 		JLabel coffeeStockLabel = new JLabel("0");
-		coffeeStockLabel.setBounds(340, 130, 46, 14);
+		coffeeStockLabel.setBounds(340, 170, 46, 14);
 		frame.getContentPane().add(coffeeStockLabel);
 		
 		/* sugar inventory */
 
 		JLabel lblSugarInventory = new JLabel("Sugar (kg)");
-		lblSugarInventory.setBounds(250, 160, 80, 14);
+		lblSugarInventory.setBounds(250, 230, 80, 14);
 		frame.getContentPane().add(lblSugarInventory);
 		
 		JLabel sugarStockLabel = new JLabel("0");
-		sugarStockLabel.setBounds(340, 160, 46, 14);
+		sugarStockLabel.setBounds(340, 230, 46, 14);
 		frame.getContentPane().add(sugarStockLabel);
 		
 		/* milk inventory */
 
 		JLabel lblMilkInventory = new JLabel("Milk (lt)");
-		lblMilkInventory.setBounds(250, 190, 80, 14);
+		lblMilkInventory.setBounds(250, 200, 80, 14);
 		frame.getContentPane().add(lblMilkInventory);
 
 		JLabel milkStockLabel = new JLabel("0");
-		milkStockLabel.setBounds(340, 190, 46, 14);
+		milkStockLabel.setBounds(340, 200, 46, 14);
 		frame.getContentPane().add(milkStockLabel);
 
 		//Prices
 		/* cup prices */
 		
 		JLabel cupPriceLabel = new JLabel("$0.125");
-		cupPriceLabel.setBounds(510, 101, 46, 14);
+		cupPriceLabel.setBounds(510, 260, 46, 14);
 		frame.getContentPane().add(cupPriceLabel);
 		
 		/* coffee prices */
 
 		JLabel coffeePriceLabel = new JLabel("$22.5");
-		coffeePriceLabel.setBounds(510, 130, 46, 14);
+		coffeePriceLabel.setBounds(510, 170, 46, 14);
 		frame.getContentPane().add(coffeePriceLabel);
 		
 		/* sugar prices */
 
 		JLabel sugarPriceLabel = new JLabel("$2.75");
-		sugarPriceLabel.setBounds(510, 160, 46, 14);
+		sugarPriceLabel.setBounds(510, 230, 46, 14);
 		frame.getContentPane().add(sugarPriceLabel);
 		
 		/* milk prices */
 
 		JLabel milkPriceLabel = new JLabel("$2.75");
-		milkPriceLabel.setBounds(510, 190, 46, 14);
+		milkPriceLabel.setBounds(510, 200, 46, 14);
 		frame.getContentPane().add(milkPriceLabel);
 		
 		//Inventory items purchase
@@ -257,61 +257,89 @@ public class ClientInterface {
 		/* cup purchase */
 		
 		JLabel cupOrderLabel = new JLabel("0");
-		cupOrderLabel.setBounds(480, 100, 25, 15);
+		cupOrderLabel.setBounds(480, 260, 25, 15);
 		frame.getContentPane().add(cupOrderLabel);
 
 		JSlider cupOrderSlider = new JSlider();
 		cupOrderSlider.setMaximum(50);
 		cupOrderSlider.setValue(0);
-		cupOrderSlider.setBounds(380, 100, 100, 20);
+		cupOrderSlider.setBounds(380, 260, 100, 20);
 		frame.getContentPane().add(cupOrderSlider);
 		
 		/* coffee purchase */
 		
 		JLabel coffeeOrderLabel = new JLabel("0");
-		coffeeOrderLabel.setBounds(480, 130, 25, 15);
+		coffeeOrderLabel.setBounds(480, 170, 25, 15);
 		frame.getContentPane().add(coffeeOrderLabel);
 		
 		JSlider coffeeOrderSlider = new JSlider();
 		coffeeOrderSlider.setMaximum(5);
 		coffeeOrderSlider.setValue(0);
-		coffeeOrderSlider.setBounds(380, 130, 100, 20);
+		coffeeOrderSlider.setBounds(380, 170, 100, 20);
 		frame.getContentPane().add(coffeeOrderSlider);
 
 		/* sugar purchase */
 		
 		JLabel sugarOrderLabel = new JLabel("0");
-		sugarOrderLabel.setBounds(480, 160, 25, 15);
+		sugarOrderLabel.setBounds(480, 230, 25, 15);
 		frame.getContentPane().add(sugarOrderLabel);
 
 		JSlider sugarOrderSlider = new JSlider();
 		sugarOrderSlider.setMaximum(5);
 		sugarOrderSlider.setValue(0);
-		sugarOrderSlider.setBounds(380, 160, 100, 20);
+		sugarOrderSlider.setBounds(380, 230, 100, 20);
 		frame.getContentPane().add(sugarOrderSlider);
 		
 		/* milk purchase */
 		
 		JLabel milkOrderLabel = new JLabel("0");
-		milkOrderLabel.setBounds(480, 190, 25, 15);
+		milkOrderLabel.setBounds(480, 200, 25, 15);
 		frame.getContentPane().add(milkOrderLabel);
 		
 		JSlider milkOrderSlider = new JSlider();
 		milkOrderSlider.setMaximum(10);
 		milkOrderSlider.setValue(0);
-		milkOrderSlider.setBounds(380, 190, 100, 20);
+		milkOrderSlider.setBounds(380, 200, 100, 20);
 		frame.getContentPane().add(milkOrderSlider);
 		
 		//Inventory buy button
 
 		JButton buyButton = new JButton("Buy");
-		buyButton.setBounds(350, 215, 90, 20);
+		buyButton.setBounds(350, 300, 90, 20);
 		frame.getContentPane().add(buyButton);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBounds(235, 60, 10, 186);
+		separator.setBounds(235, 140, 10, 186);
 		frame.getContentPane().add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setForeground(Color.RED);
+		separator_1.setBounds(15, 120, 545, 3);
+		frame.getContentPane().add(separator_1);
+		
+		JLabel lblLabel = new JLabel("Instructions");
+		lblLabel.setForeground(Color.RED);
+		lblLabel.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblLabel.setBounds(20, 35, 530, 20);
+		frame.getContentPane().add(lblLabel);
+		
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setForeground(Color.RED);
+		separator_2.setBounds(10, 55, 545, 3);
+		frame.getContentPane().add(separator_2);
+		
+		JLabel lblFillYour = new JLabel("1- Fill your inventory (Right side). Choose order amount and then use the buy button.");
+		lblFillYour.setBounds(15, 60, 550, 14);
+		frame.getContentPane().add(lblFillYour);
+		
+		JLabel lblDetermineThe = new JLabel("2- Determine the ingredients of your coffee and set the price (Left side).");
+		lblDetermineThe.setBounds(15, 80, 550, 14);
+		frame.getContentPane().add(lblDetermineThe);
+		
+		JLabel lblClickOn = new JLabel("3- Click on the submit button (Left side).");
+		lblClickOn.setBounds(15, 99, 550, 14);
+		frame.getContentPane().add(lblClickOn);
 		
 		/* buy button action listener */
 		buyButton.addActionListener(new ActionListener()
@@ -391,6 +419,7 @@ public class ClientInterface {
 						
 						//Update shop data with coming shop object's data
 						shop = updatedShop;
+						shop.inventory.milk = 0.0;
 						
 						//Clean up the milk inventory
 						//shop.inventory.milk = 0;
