@@ -391,6 +391,7 @@ public class ClientInterface {
 						
 						//Update shop data with coming shop object's data
 						shop = updatedShop;
+						shop.inventory.milk = 0.0;
 						
 						//Clean up the milk inventory
 						//shop.inventory.milk = 0;
