@@ -313,13 +313,15 @@ public class Teacher {
 				
 				setUtilityFunctions();
 				
+				day++;
+				dayLabel.setText(""+day);
+				
 				Engine.sendCustomersToShops();
 
 				Engine.readyCheck = true;
 				Teacher.readyCheck = true;
 
-				day++;
-				dayLabel.setText(""+day);
+				
 
 				try {
 					Thread.sleep(1000);

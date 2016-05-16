@@ -38,6 +38,13 @@ public class Engine {
 	static MultilineChartDrawer charterSales = new MultilineChartDrawer(1);
 	static MultilineChartDrawer charterPrices = new MultilineChartDrawer(2);
 	static MultilineChartDrawer charter;
+	static int widthBalance;
+	static int heightBalance;
+	static int widthSales;
+	static int heightSales;
+	static int widthPrice;
+	static int heightPrice;
+	
 	
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
@@ -86,7 +93,7 @@ public class Engine {
 	}
 
 	public static void sendCustomersToShops(){
-		if(Teacher.day==1){
+		if(Teacher.day==2){
 			for(Shop shop : shopMap.values()){
 				ArrayList<Double> sales = new ArrayList<Double>();
 				sales.add((double)shop.dailySales);
@@ -107,6 +114,13 @@ public class Engine {
 				shopU1s.put(shop.name, u1s);
 				shopU2s.put(shop.name, u2s);
 				shopU3s.put(shop.name, u3s);
+				
+				widthBalance = 800;
+				heightBalance = 600;
+				widthSales = 800;
+				heightSales = 600;
+				widthPrice = 800;
+				heightPrice = 600;
 			}
 		}
 		shopMapBefore = shopMap;
@@ -184,20 +198,28 @@ public class Engine {
 	public static void drawCharts(){
 		
 		for(int i=0;i<3;i++){
+			
 			//Instantiate an instance of this demo module
 			charter = new MultilineChartDrawer(i);
 			System.out.println("Charter initialized..");
 			//Create and set up the main window
-			
+			int width;
+			int height;
 			if(i==0){
 				frameChart=frameBalance;
 				charter = charterBalance;
+				width=widthBalance;
+				height=heightBalance;
 			}else if(i==1){
 				frameChart=frameSales;
 				charter=charterSales;
+				width=widthSales;
+				height=heightSales;
 			}else{
 				frameChart=framePrices;
 				charter=charterPrices;
+				width=widthPrice;
+				height=heightPrice;
 			}
 			
 			for(WindowListener wl : frameChart.getWindowListeners()){
@@ -218,7 +240,8 @@ public class Engine {
 			// Create the chart and put them in the content pane
 			ChartViewer viewer = new ChartViewer();
 			System.out.println("Viewer created.");
-			charter.createChart(viewer,800,600);
+			
+			charter.createChart(viewer,width,height);
 			System.out.println("Chart Created.");
 			frameChart.getContentPane().add(viewer);
 			
@@ -234,14 +257,28 @@ public class Engine {
 	        frameChart.addComponentListener(new java.awt.event.ComponentAdapter() {
 	            public void componentResized(java.awt.event.ComponentEvent evt) {
 	                JFrame tmp = (JFrame)evt.getSource();
-	                if (tmp.getTitle().equals("Balances Chart ")) charter=charterBalance;
-	                else if (tmp.getTitle().equals("Sales Chart ")) charter=charterSales;
-	                else charter = charterPrices;
+	                if (tmp.getTitle().equals("Balances Chart ")) {
+	                	charter=charterBalance;
+	                	widthBalance=tmp.getWidth();
+	                	heightBalance=tmp.getHeight();
+	                }
+	                else if (tmp.getTitle().equals("Sales Chart ")) {
+	                	charter=charterSales;
+	                	widthSales=tmp.getWidth();
+	                	heightSales=tmp.getHeight();
+	                }
+	                else {
+	                	charter = charterPrices;
+	                	widthPrice=tmp.getWidth();
+	                	heightPrice=tmp.getHeight();
+	                }
 	                
 	                if (tmp.getWidth() < 250 || tmp.getHeight() < 250){
 	                	charter.createChart(viewer, 250, 250);
 	                    tmp.setSize(250, 250);
-	                }else charter.createChart(viewer, tmp.getWidth(), tmp.getHeight());
+	                }else{
+	                	charter.createChart(viewer, tmp.getWidth(), tmp.getHeight());
+	                }
 	            }
 	        });
 	        

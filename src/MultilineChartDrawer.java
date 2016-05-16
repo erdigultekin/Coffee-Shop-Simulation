@@ -24,9 +24,9 @@ public class MultilineChartDrawer
 	String[] yAxisTitles = {"Balances","Sales","Prices"
 			,"Utility1s","Utility2s","Utility3s"};
 
-	String[] frameTitles={"Balance Chart of Day "+Teacher.day,"Sales Chart of Day "+Teacher.day
-			,"Prices Chart of Day "+Teacher.day,"Utility 1 Chart of Day "+Teacher.day
-			,"Utility 2 Chart of Day "+Teacher.day,"Utility 3 Chart of Day "+Teacher.day};
+	String[] frameTitles={"Balance Chart of Day "+Teacher.day,"Sales Chart of Day "+(Teacher.day-1)
+			,"Prices Chart of Day "+Teacher.day,"Utility 1 Chart of Day "+(Teacher.day-1)
+			,"Utility 2 Chart of Day "+Teacher.day,"Utility 3 Chart of Day "+(Teacher.day-1)};
 
 
 	public MultilineChartDrawer(int chartIdentifier){
@@ -54,7 +54,7 @@ public class MultilineChartDrawer
 		this.height=height;
 		String[] shopNames = new String[dataSource.size()];
 		// The data for the line chart
-		double[][] data = new double[dataSource.size()][Teacher.day+1];
+		double[][] data = new double[dataSource.size()][Teacher.day];
 
 		int i=0;
 		for(String shopName : dataSource.keySet()){
@@ -67,23 +67,23 @@ public class MultilineChartDrawer
 			i++;
 		}
 		// The labels for the line chart
-		String[] labels = new String[Teacher.day+1];
-		for(int day=0;day<=Teacher.day;day++){
+		String[] labels = new String[Teacher.day];
+		for(int day=0;day<=Teacher.day-1;day++){
 			labels[day]=""+day;
 		}
 		System.out.println("Data sets created");
 		// Create an XYChart object of size 600 x 300 pixels, with a light blue (EEEEFF) background,
 		// black border, 1 pxiel 3D border effect and rounded corners
-		this.c = new XYChart(width-20, height-20, 0xeeeeff, 0x000000, 1);
+		this.c = new XYChart(width-40, height-30, 0xeeeeff, 0x000000, 1);
 		c.setRoundedFrame();
 
 		// Set the plotarea at (55, 58) and of size 520 x 195 pixels, with white background. Turn on
 		// both horizontal and vertical grid lines with light grey color (0xcccccc)
-		c.setPlotArea(80, 80, width-140, height-140, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
+		c.setPlotArea(55, 58, width-140, height-160, 0xffffff, -1, -1, 0xcccccc, 0xcccccc);
 
 		// Add a legend box at (50, 30) (top of the chart) with horizontal layout. Use 9pt Arial
 		// Bold font. Set the background and border color to Transparent.
-		c.addLegend(75, 30, false, "Arial Bold", 9).setBackground(Chart.Transparent);
+		c.addLegend(50, 30, false, "Arial Bold", 9).setBackground(Chart.Transparent);
 		
 		// Add a title box to the chart using 15pt Times Bold Italic font, on a light blue (CCCCFF)
 		// background with glass effect. white (0xffffff) on a dark red (0x800000) background, with
@@ -116,7 +116,8 @@ public class MultilineChartDrawer
 		}
 
 		// Output the chart
-		viewer.setChart(c);
+		//viewer.setChart(c);
+		viewer.setImage(c.makeImage());
 
 		//include tool tip for the chart
 		viewer.setImageMap(c.getHTMLImageMap("clickable", "",
