@@ -26,6 +26,8 @@ public class ClientInterface {
 	public double cupUnitPrice = 0.1;
 	public static Shop shop;
 	public Shop updatedShop;
+	
+	long resubmitTimer=100000;
 
 	public  ClientInterface() {
 		
@@ -398,21 +400,28 @@ public class ClientInterface {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				
 				if(priceField.getText().equals("")){
 					status = "Please set the coffee price for the next day!";
 					dataStatusLabel.setText(status);
 				}else{
 					
-					
+					System.out.println("Clicked at : "+(System.currentTimeMillis()-resubmitTimer));
+					//At least 3 second after recieving the shop.
+					if((System.currentTimeMillis()-resubmitTimer)<3000){
+						return;
+					}
 					//Disable submit and buy buttons during the submit actions
-					submitButton.setEnabled(false);
-					buyButton.setEnabled(false);
+					
 					
 					//Get recipe values
 					Recipe recipe = new Recipe(coffeePerCup.getValue(),milkPerCup.getValue(),sugarPerCup.getValue(), Double.parseDouble(priceField.getText()));
 					//Update the shop's recipe
 					shop.recipe = recipe;
-
+					
+					submitButton.setEnabled(false);
+					buyButton.setEnabled(false);
+					
 					try {
 						//Send and receive the shop object
 						updatedShop = Client.connect(shop);
@@ -444,6 +453,8 @@ public class ClientInterface {
 
 						status = "Please set your recipe and inventory for the next day.";
 						dataStatusLabel.setText(status);
+						
+						resubmitTimer=System.currentTimeMillis();
 
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block

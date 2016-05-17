@@ -11,6 +11,7 @@ public class Client{
 	public static Shop connect(Shop shop) throws IOException{
 		// localhost ip
 		String ip = ClientInterface.IPAddress;
+		
 		int port = 4444;
 		Socket socket = null;
 

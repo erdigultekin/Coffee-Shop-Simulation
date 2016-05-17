@@ -332,7 +332,7 @@ public class Teacher {
 				Engine.readyCheck = false;
 				Teacher.readyCheck = false;
 			
-				Engine.clearPlaylist();
+				//Engine.clearPlaylist();
 			}else{
 				JOptionPane.showMessageDialog(null,"Please fill the utility function variables properly!","Error",JOptionPane.WARNING_MESSAGE);
 			}
