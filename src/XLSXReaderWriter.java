@@ -63,10 +63,9 @@ public class XLSXReaderWriter {
 							declareMaxValues();
 						}else if(cell.getStringCellValue().equals("Shop Name")){
 							declareShops();
-							Engine.isTest=true;
 							for(int i=0;i<runCount;i++){
-								if(Teacher.day==0||Teacher.day==1){
-									Teacher.day=2;
+								if(Teacher.day==0){
+									Teacher.day=1;
 								}else{
 									Teacher.day++;
 								}

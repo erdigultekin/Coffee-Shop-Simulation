@@ -28,7 +28,6 @@ public class Server {
 		while (true) {
 			try {
 				clientSocket = server.accept();
-				//clientSocket.getInetAddr()  ->> Will be used for sending charts to clients.
 
 			} catch (IOException e) {
 				e.printStackTrace();

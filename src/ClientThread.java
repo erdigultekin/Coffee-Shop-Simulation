@@ -57,11 +57,11 @@ public class ClientThread extends Thread{
 				return;
 			}
 			
+			shop.dailySales = 0;
+
 			Engine.updatePlayerList(shop);
 
 			System.out.println("Updated player list in teacher gui");
-
-			shop.dailySales = 0;
 
 			Engine.controlTeachersApproval();
 

@@ -29,12 +29,26 @@ public class Engine {
 	static volatile HashMap<String,ArrayList<Double>> shopU3s = new HashMap<String,ArrayList<Double>>();
 	static volatile HashMap<String,ArrayList<Double>> shopPrices = new HashMap<String,ArrayList<Double>>();
 
+	
+	static JFrame frameBalance = new JFrame("Balances Chart ");
+	static JFrame frameSales = new JFrame("Sales Chart ");
+	static JFrame framePrices = new JFrame("Prices Chart ");
+	static JFrame frameChart;
+	static MultilineChartDrawer charterBalance = new MultilineChartDrawer(0);
+	static MultilineChartDrawer charterSales = new MultilineChartDrawer(1);
+	static MultilineChartDrawer charterPrices = new MultilineChartDrawer(2);
+	static MultilineChartDrawer charter;
+	static int widthBalance;
+	static int heightBalance;
+	static int widthSales;
+	static int heightSales;
+	static int widthPrice;
+	static int heightPrice;
+	
+	
 	public static boolean readyCheck = false;
 	private static int customerPopulation = 0;
 
-	//Here for only testing purposes. Test program makes this true;
-	public static boolean isTest=false;
-	
 	public Engine() {
 
 	}
@@ -47,20 +61,6 @@ public class Engine {
 	}
 
 	public synchronized static void updatePlayerList (Shop shop) {
-		if(Teacher.playerList.contains(shop.name)){
-			int index = Teacher.playerList.indexOf(shop.name);
-			Teacher.balances.removeElementAt(index);
-			Teacher.sales.removeElementAt(index);
-			Teacher.prices.removeElementAt(index);
-			Teacher.sugarMix.removeElementAt(index);
-			Teacher.milkMix.removeElementAt(index);
-			Teacher.coffeeMix.removeElementAt(index);
-			Teacher.coffees.removeElementAt(index);
-			Teacher.sugars.removeElementAt(index);
-			Teacher.milks.removeElementAt(index);
-			Teacher.cups.removeElementAt(index);
-			Teacher.playerList.removeElementAt(index);
-		}
 
 		Teacher.playerList.addElement(shop.name);
 		Teacher.balances.addElement(shop.balance);
@@ -75,8 +75,6 @@ public class Engine {
 		Teacher.cups.addElement(shop.inventory.cups);
 		shopMap.put(shop.name, shop);
 	}
-
-
 
 	public static void controlTeachersApproval() {
 		//System.out.println("waiting for ready check from the teacher");
@@ -116,8 +114,13 @@ public class Engine {
 				shopU1s.put(shop.name, u1s);
 				shopU2s.put(shop.name, u2s);
 				shopU3s.put(shop.name, u3s);
-
-				ChartDrawManager.init();
+				
+				widthBalance = 800;
+				heightBalance = 600;
+				widthSales = 800;
+				heightSales = 600;
+				widthPrice = 800;
+				heightPrice = 600;
 			}
 		}
 		shopMapBefore = shopMap;
@@ -181,20 +184,106 @@ public class Engine {
 			shopU1s.put(shop.name, u1s);
 			shopU2s.put(shop.name, u2s);
 			shopU3s.put(shop.name, u3s);
-			if(!isTest) updatePlayerList(shop);
 		}
 		System.out.println("Printing Test results now...");
 		//Method for writing test results to excel
-		XLSXReaderWriter.printTestResults("TestResult-Day"+(Teacher.day-1)+".xlsx");
+		XLSXReaderWriter.printTestResults("TestResult-Day"+Teacher.day+".xlsx");
 		System.out.println("Printed Test results. Drawing Charts now...");
 		//Method for creating charts
-		//ChartDrawManager.drawLineCharts();
-		ChartDrawManager.drawDonutCharts();
+		drawCharts();
 		System.out.println("Drawed Charts now...");
 
 	}
 
+	public static void drawCharts(){
+		
+		for(int i=0;i<3;i++){
+			
+			//Instantiate an instance of this demo module
+			charter = new MultilineChartDrawer(i);
+			System.out.println("Charter initialized..");
+			//Create and set up the main window
+			int width;
+			int height;
+			if(i==0){
+				frameChart=frameBalance;
+				charter = charterBalance;
+				width=widthBalance;
+				height=heightBalance;
+			}else if(i==1){
+				frameChart=frameSales;
+				charter=charterSales;
+				width=widthSales;
+				height=heightSales;
+			}else{
+				frameChart=framePrices;
+				charter=charterPrices;
+				width=widthPrice;
+				height=heightPrice;
+			}
+			
+			for(WindowListener wl : frameChart.getWindowListeners()){
+				frameChart.removeWindowListener(wl);
+				frameChart.remove(frameChart.getContentPane());
+				JPanel panel = new JPanel();
+				frameChart.setContentPane(panel);
+			}
+			
+			for(ComponentListener cl : frameChart.getComponentListeners()){
+				frameChart.removeComponentListener(cl);
+			}
+			
+			frameChart.addWindowListener(new WindowAdapter() {
+				public void windowClosing(WindowEvent e) {frameChart.dispose();} });
+			frameChart.getContentPane().setBackground(Color.white);
+			System.out.println("Frame created.");
+			// Create the chart and put them in the content pane
+			ChartViewer viewer = new ChartViewer();
+			System.out.println("Viewer created.");
+			
+			charter.createChart(viewer,width,height);
+			System.out.println("Chart Created.");
+			frameChart.getContentPane().add(viewer);
+			
+			
+			//frameChart.setDefaultCloseOperation(frameChart.EXIT_ON_CLOSE);
 
+			// Display the window
+			
+			frameChart.pack();
+			frameChart.setVisible(true);
+			System.out.println("Frame is visible now");
+			// Resize handler
+	        frameChart.addComponentListener(new java.awt.event.ComponentAdapter() {
+	            public void componentResized(java.awt.event.ComponentEvent evt) {
+	                JFrame tmp = (JFrame)evt.getSource();
+	                if (tmp.getTitle().equals("Balances Chart ")) {
+	                	charter=charterBalance;
+	                	widthBalance=tmp.getWidth();
+	                	heightBalance=tmp.getHeight();
+	                }
+	                else if (tmp.getTitle().equals("Sales Chart ")) {
+	                	charter=charterSales;
+	                	widthSales=tmp.getWidth();
+	                	heightSales=tmp.getHeight();
+	                }
+	                else {
+	                	charter = charterPrices;
+	                	widthPrice=tmp.getWidth();
+	                	heightPrice=tmp.getHeight();
+	                }
+	                
+	                if (tmp.getWidth() < 250 || tmp.getHeight() < 250){
+	                	charter.createChart(viewer, 250, 250);
+	                    tmp.setSize(250, 250);
+	                }else{
+	                	charter.createChart(viewer, tmp.getWidth(), tmp.getHeight());
+	                }
+	            }
+	        });
+	        
+		}
+	}
 
 	public static void sendOneCustomerToAShop(Customer c, LineSegmentUtilityRepresentation lsur){
 		//System.out.println("#####sendOneCustomerToAShop#####");
